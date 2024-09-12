@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { FaShopify } from "react-icons/fa6";
 
 function Logo() {
