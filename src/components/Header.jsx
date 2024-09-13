@@ -122,7 +122,7 @@ function Header() {
 
       <div className="w-white">
         <div className="w-[85%] lg:w-[90%] mx-auto">
-          <div className="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap  ">
+          <div className="flex flex-wrap items-center justify-between py-5 md-lg:py-4">
             <div className="w-3/12 md-lg:w-full md-lg:pt-4">
               <div className="flex items-center justify-between">
                 <Link to="/">
@@ -137,7 +137,7 @@ function Header() {
                   </button>
                   <div
                     onClick={() => setShowSidebar(false)}
-                    className=" items-center justify-center w-[30px] h-[30px] bg-white text-slate-600  dark:bg-slate-600 dark:text-slate-50 border bordeer-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden  "
+                    className=" items-center justify-center w-[30px] h-[30px] bg-white text-slate-800  dark:bg-slate-600 dark:text-slate-50 border bordeer-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden  "
                   >
                     <span>
                       <FaList />
@@ -392,12 +392,12 @@ function Header() {
       </div>
 
       <div className="w-[85%] lg:w-[90%] mx-auto">
-        <div className="flex flex-wrap w-full md-lg:gap-8">
+        <div className="flex flex-wrap w-full md-lg:gap-4">
           <div className="w-3/12 md-lg:w-full">
             <div className="relative bg-white">
               <div
                 onClick={() => setCategoryShow(!categoryShow)}
-                className="h-[50px] bg-[#059473] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer"
+                className="h-[50px] md-lg:h-[40px] bg-[#059473] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer"
               >
                 <div className="flex items-center justify-center gap-3">
                   <span>
@@ -412,7 +412,7 @@ function Header() {
 
               <div
                 className={`${
-                  categoryShow ? "h-0" : "h-[400px]"
+                  categoryShow ? "h-0" : "h-[400px] md-lg:h-[300px]"
                 } overflow-hidden transition-all md-lg:relative duration-500 absolute z-[999] bg-[#dbf3ed] dark:bg-[#232D3F]  w-full border-x`}
               >
                 {" "}
@@ -435,7 +435,7 @@ function Header() {
           <div className="w-9/12 pb-4 pl-8 md-lg:pl-0 md-lg:w-full">
             <div className="flex flex-wrap items-center justify-between w-full md-lg:gap-6">
               <div className="w-8/12 md-lg:w-full">
-                <div className="flex border dark:border-slate-600 h-[50px] items-center relative gap-6">
+                <div className="flex border dark:border-slate-600 h-[50px] md-lg:h-[40px] items-center relative gap-6">
                   <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] md:hidden">
                     <select
                       onChange={(e) => setCategory(e.target.value)}
