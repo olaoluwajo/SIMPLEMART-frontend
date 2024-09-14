@@ -153,6 +153,7 @@ function Header() {
                 <ul className="flex items-start justify-start gap-8 text-sm font-bold uppercase md-lg:hidden">
                   <li>
                     <Link
+                      to={"/"}
                       className={`p-2 block ${
                         pathname === "/"
                           ? "text-[#059473] "
@@ -220,15 +221,16 @@ function Header() {
                         {wishlist_count}
                       </div>
                     </div>
-
-                    <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
-                      <span className="text-xl text-green-500">
-                        <FaCartShopping />
-                      </span>
-                      <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                        {wishlist_count}
+                    <Link to={"/cart"}>
+                      <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
+                        <span className="text-xl text-green-500">
+                          <FaCartShopping />
+                        </span>
+                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                          {wishlist_count}
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -292,6 +294,27 @@ function Header() {
                   <span>Login</span>
                 </Link>
               )}
+            </div>
+
+            <div className="flex justify-start gap-5">
+              <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
+                <span className="text-xl text-green-500">
+                  <FaHeart />
+                </span>
+                <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                  {wishlist_count}
+                </div>
+              </div>
+              <Link to={"/cart"}>
+                <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
+                  <span className="text-xl text-green-500">
+                    <FaCartShopping />
+                  </span>
+                  <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                    {wishlist_count}
+                  </div>
+                </div>
+              </Link>
             </div>
 
             <ul className="flex flex-col items-start justify-start text-sm font-bold uppercase">
