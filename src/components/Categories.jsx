@@ -64,8 +64,8 @@ function Categories() {
         autoPlay={true}
         infinite={true}
         arrows={true}
-        // showDots={true}
-        transitionDuration={200}
+        transitionDuration={2000}
+        autoPlaySpeed={2000}
         responsive={responsive}
         removeArrowOnDeviceType={["", "mobile"]}
       >
