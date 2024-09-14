@@ -11,7 +11,7 @@ import Products from "../components/products/Products";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaThList } from "react-icons/fa";
 import ShopProducts from "../components/products/ShopProducts";
-// import Pagination from "../components/Pagination";
+import Pagination from "../components/Pagination";
 
 const Shops = () => {
   const [filter, setFilter] = useState(true);
@@ -302,7 +302,7 @@ const Shops = () => {
                   <ShopProducts styles={styles} />
                 </div>
 
-                {/* <div>
+                <div>
                   <Pagination
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
@@ -310,7 +310,7 @@ const Shops = () => {
                     parPage={parPage}
                     showItem={Math.floor(10 / 3)}
                   />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

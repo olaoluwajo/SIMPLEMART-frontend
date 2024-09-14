@@ -10,14 +10,14 @@ function ShopProducts({ styles }) {
     <div
       className={`w-full grid ${
         styles === "grid"
-          ? "grid-cols-3 md-lg:grid-cols-2 md:grid-cols-2"
+          ? "grid-cols-4 md-lg:grid-cols-2 md:grid-cols-2"
           : "grid-cols-1 md-lg:grid-cols-2 md:grid-cols-2"
-      } gap-3 `}
+      } gap-4 `}
     >
-      {[1, 2, 3, 4, 5, 6].map((p, i) => (
+      {[1, 2, 3, 4, 5, 6,7,8].map((p, i) => (
         <div
           key={i}
-          className={`flex transition-all duration-1000 hover:shadow-md hover:-translate-y-3 ${
+          className={`flex group transition-all duration-1000 hover:shadow-md dark:hover:shadow-slate-400 hover:-translate-y-3 ${
             styles === "grid"
               ? "flex-col justify-start items-start hover:-translate-y-3"
               : "justify-start items-center md-lg:flex-col md-lg:justify-start md-lg:items-start  hover:-translate-x-3  hover:-translate-y-0 p-4"
@@ -26,7 +26,7 @@ function ShopProducts({ styles }) {
           <div
             className={
               styles === "grid"
-                ? "w-full relative group h-[210px] md:h-[270px] xs:h-[170px] overflow-hidden"
+                ? "w-full relative  h-[210px] md:h-[270px] xs:h-[170px] overflow-hidden"
                 : "md-lg:w-full relative group h-[210px] md:h-[270px] overflow-hidden"
             }
           >
