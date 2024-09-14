@@ -46,7 +46,7 @@ function Header() {
   const [category, setCategory] = useState("");
 
   return (
-    <div className="w-full  border-b-2 dark:border-slate-600 border-slate-200">
+    <div className="w-full  border-b-2 dark:border-slate-600 border-slate-200  bg-[#fefefa] dark:bg-[#040D12]">
       <div className="header-top bg-[#caddff] dark:bg-[#232D3F]  md-lg:hidden">
         <div className="w-[85%] lg:w-[90%] mx-auto ">
           <div className="flex w-full justify-between items-center h-[50px] text-slate-500  ">
@@ -165,13 +165,14 @@ function Header() {
 
                   <li>
                     <Link
+                      to={"/shops"}
                       className={`p-2 block ${
-                        pathname === "/shop"
+                        pathname === "/shops"
                           ? "text-[#059473]"
                           : "text-slate-600 dark:text-[#F5E8C7]"
                       } `}
                     >
-                      Shop
+                      Shops
                     </Link>
                   </li>
                   <li>
@@ -306,13 +307,14 @@ function Header() {
 
               <li>
                 <Link
+                  to={"/shops"}
                   className={`py-2 block ${
-                    pathname === "/shop"
+                    pathname === "/shops"
                       ? "text-[#059473]"
                       : "text-slate-600 dark:text-[#F5E8C7]"
                   } `}
                 >
-                  Shop
+                  Shops
                 </Link>
               </li>
               <li>
