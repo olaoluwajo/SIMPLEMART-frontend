@@ -52,6 +52,12 @@ function Categories() {
 
   return (
     <div className="mx-auto relative w-[87%] my-2 ">
+      <div className="w-full">
+        <div className="text-center flex flex-col justify-center items-center text-2xl text-slate-600 dark:text-[#fff9e3] font-bold relative pb-[35px]">
+          <h2> Top Category</h2>
+          <div className="w-[100px] h-[2px] bg-[#059473] mt-2"></div>
+        </div>
+      </div>
       <Carousel
         swipeable={true}
         draggable={true}
@@ -69,7 +75,7 @@ function Categories() {
             to="#"
             className="h-[185px] border block  bg-white mx-2"
           >
-            <div className="group hover:scale-110 transition-all w-full h-full relative p-3 ">
+            <div className="group hover:scale-110 transition-all w-full h-full relative p-3  ">
               <img
                 src={`/images/products/${i + 1}.webp`}
                 alt=""
