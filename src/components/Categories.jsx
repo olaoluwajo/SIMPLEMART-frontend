@@ -65,7 +65,7 @@ function Categories() {
         infinite={true}
         arrows={true}
         // showDots={true}
-        transitionDuration={500}
+        transitionDuration={200}
         responsive={responsive}
         removeArrowOnDeviceType={["", "mobile"]}
       >

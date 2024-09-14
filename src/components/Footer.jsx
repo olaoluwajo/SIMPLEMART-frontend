@@ -26,39 +26,39 @@ function Footer() {
          <div className="flex justify-center sm:justify-start sm:mt-6 w-full">
            <div>
              <h2 className="font-bold text-lg mb-2">Usefull Links </h2>
-             <div className="flex justify-between gap-[80px] lg:gap-[40px]">
-               <ul className="flex flex-col gap-2  text-sm font-semibold">
-                 <li className="hover:pl-2">
+             <div className="flex justify-between gap-[80px] lg:gap-[40px] w-full">
+               <ul className="flex flex-col gap-2  text-sm font-semibold ">
+                 <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>About Us </Link>
                  </li>
-                 <li className="hover:pl-2">
+                 <li className="transition-all duration-100 hover:text-[#059473]">
                    <Link>About Our Shop </Link>
                  </li>
-                 <li className="hover:pl-2">
-                   <Link>Delivery Information </Link>
+                 <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
+                   <Link>Delivery </Link>
                  </li>
-                 <li className="hover:pl-2">
+                 <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>Privacy Policy </Link>
                  </li>
-                 <li className="hover:pl-2">
+                 <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>Blogs </Link>
                  </li>
                </ul>
 
                <ul className="flex flex-col gap-2  text-sm font-semibold">
-                 <li className="hover:pl-2">
+                  <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>Our Service </Link>
                  </li>
-                 <li className="hover:pl-2">
+                  <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>Company Profile</Link>
                  </li>
-                 <li className="hover:pl-2">
+                 <li className="transition-all duration-100 hover:text-[#059473]">
                    <Link>Delivery Information </Link>
                  </li>
-                 <li className="hover:pl-2">
+                  <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>Privacy Policy </Link>
                  </li>
-                 <li className="hover:pl-2">
+                  <li className="hover:pl-2 transition-all duration-100 hover:text-[#059473]">
                    <Link>Blogs </Link>
                  </li>
                </ul>
@@ -67,7 +67,7 @@ function Footer() {
          </div>
        </div>
 
-       <div className="w-4/12 lg:w-full lg:mt-6">
+       <div className="w-4/12 lg:w-full lg:mt-6 ">
          <div className="w-full flex flex-col justify-start gap-5">
            <h2 className="font-bold text-lg mb-2">Join Our Shop</h2>
            <span>
