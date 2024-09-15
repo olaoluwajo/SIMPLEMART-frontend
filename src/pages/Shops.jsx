@@ -13,7 +13,7 @@ import { FaThList } from "react-icons/fa";
 import ShopProducts from "../components/products/ShopProducts";
 import Pagination from "../components/Pagination";
 
-const Shops = () => {
+function Shops() {
   const [filter, setFilter] = useState(true);
   const categorys = [
     "Mobiles",
@@ -320,6 +320,6 @@ const Shops = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Shops;

@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaNairaSign } from "react-icons/fa6";
 
@@ -9,6 +9,18 @@ function Cart() {
   const outOfStockProduct = [1, 2, 3];
   // const cart_products = [];
   // const outOfStockProduct = [];
+  const navigate = useNavigate();
+
+  const redirect = () => {
+    navigate("/delivery", {
+      state: {
+        products: [],
+        price: 500,
+        delivery_fee: 40,
+        items: 2,
+      },
+    });
+  };
 
   return (
     <div>
@@ -142,7 +154,10 @@ function Cart() {
                           <span className="text-lg">430 </span>
                         </div>
                       </div>
-                      <button className="px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase ">
+                      <button
+                        onClick={redirect}
+                        className="px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase "
+                      >
                         Process to Checkout
                       </button>
                     </div>
