@@ -221,14 +221,15 @@ function Header() {
                         {wishlist_count}
                       </div>
                     </div>
-                    <Link to={"/cart"}>
-                      <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
-                        <span className="text-xl text-green-500">
-                          <FaCartShopping />
-                        </span>
-                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                          {wishlist_count}
-                        </div>
+                    <Link
+                      to={"/cart"}
+                      className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+                    >
+                      <span className="text-xl text-green-500">
+                        <FaCartShopping />
+                      </span>
+                      <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                        {wishlist_count}
                       </div>
                     </Link>
                   </div>
@@ -305,14 +306,15 @@ function Header() {
                   {wishlist_count}
                 </div>
               </div>
-              <Link to={"/cart"}>
-                <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
-                  <span className="text-xl text-green-500">
-                    <FaCartShopping />
-                  </span>
-                  <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                    {wishlist_count}
-                  </div>
+              <Link
+                to={"/cart"}
+                className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+              >
+                <span className="text-xl text-green-500">
+                  <FaCartShopping />
+                </span>
+                <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                  {wishlist_count}
                 </div>
               </Link>
             </div>
