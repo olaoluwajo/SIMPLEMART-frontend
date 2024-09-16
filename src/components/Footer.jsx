@@ -14,10 +14,10 @@ function Footer() {
            <Logo />
            <ul className="flex flex-col gap-2 ">
              <li>
-               Address : 2504 Ivins Avenue, Egg Harbor Township, NJ 08234,
+               Address : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore consectetur ,
              </li>
              <li>Phone : 4343434344</li>
-             <li>Email : support@easylearingbd.com</li>
+             <li>Email : support@simple.com</li>
            </ul>
          </div>
        </div>
