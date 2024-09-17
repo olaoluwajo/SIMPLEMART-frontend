@@ -4,12 +4,16 @@ import Shops from "./pages/Shops";
 import Cart from "./pages/Cart";
 import Delivery from "./pages/Delivery";
 import Details from "./pages/Details";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/shops" element={<Shops />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/delivery" element={<Delivery />} />

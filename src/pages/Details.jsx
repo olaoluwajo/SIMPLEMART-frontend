@@ -8,9 +8,15 @@ import { useState } from "react";
 import Rating from "./../components/Rating";
 import { FaFacebookF, FaGithub, FaHeart, FaLinkedin, FaNairaSign, FaTwitter } from "react-icons/fa6";
 import Reviews from "../components/Reviews";
-// import Swiper from "swiper";
-import { Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
+// import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/pagination";
+import "swiper/css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 function Details() {
   const images = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -386,7 +392,9 @@ function Details() {
                 clickable: true,
                 el: ".custom_bullet",
               }}
-              modules={[Pagination]}
+              modules={[Navigation, Pagination]}
+              navigation
+              scrollbar={{ draggable: true }}
               className="mySwiper"
             >
               {[1, 2, 3, 4, 5, 6].map((p, i) => {
