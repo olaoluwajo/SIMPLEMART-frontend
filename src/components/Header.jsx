@@ -20,9 +20,14 @@ import { DarkModeContext } from "../context/DackModeContext";
 import { FaSquareXTwitter, FaHeart, FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./../Logo";
+import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
   const { dark, darkModeHandler } = useContext(DarkModeContext);
+
+    const { categories } = useSelector((state) => state.home);
+
+
   const { pathname } = useLocation();
 
   const [showSidebar, setShowSidebar] = useState(true);
@@ -30,17 +35,9 @@ function Header() {
 
   const user = false;
   const wishlist_count = 3;
+  // console.log(categories)
 
-  const categories = [
-    "Mobiles",
-    "Laptops",
-    "Speakers",
-    "Top wear",
-    "Footwear",
-    "Watches",
-    "Home Decor",
-    "Smart Watches",
-  ];
+  // const categories = [];
 
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState("");
@@ -451,7 +448,12 @@ function Header() {
                         key={i}
                         className="flex justify-start items-center gap-2 px-[24px] py-[6px]"
                       >
-                        <Link className="block text-sm">{c}</Link>
+                        <img
+                          src={c.image}
+                          className="w-[30px] h-[30px] rounded-full overflow-hidden"
+                          alt=""
+                        />
+                        <Link className="block text-sm">{c.name}</Link>
                       </li>
                     );
                   })}
@@ -473,8 +475,13 @@ function Header() {
                     >
                       <option value="">Select Category</option>
                       {categories.map((c, i) => (
-                        <option value={c} key={i} className="text-slate-600">
-                          {c}
+                        <option
+                          value={c.name}
+                          key={i}
+                          className="text-slate-600"
+                        >
+                       
+                          {c.name}
                         </option>
                       ))}
                     </select>

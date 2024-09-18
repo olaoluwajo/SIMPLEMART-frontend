@@ -1,23 +1,27 @@
 import Carousel from "react-multi-carousel";
 import { Link } from "react-router-dom";
 import "react-multi-carousel/lib/styles.css";
+import {  useSelector } from "react-redux";
+
 
 function Categories() {
 
 
 
+    const { categories } = useSelector((state) => state.home);
 
-  const categories = [
-    "Mobiles",
-    "Laptops",
-    "Speakers",
-    "Top wear",
-    "Footwear",
-    "Watches",
-    "Home Decor",
-    "Smart Watches",
-  ];
+  // const categories = [
+  //   "Mobiles",
+  //   "Laptops",
+  //   "Speakers",
+  //   "Top wear",
+  //   "Footwear",
+  //   "Watches",
+  //   "Home Decor",
+  //   "Smart Watches",
+  // ];
 
+  
 
   const responsive = {
     superLargeDesktop: {
@@ -77,13 +81,13 @@ function Categories() {
           >
             <div className="group hover:scale-110 transition-all w-full h-full relative p-3  ">
               <img
-                src={`/images/products/${i + 1}.webp`}
+                src={c.image}
                 alt=""
                 className="w-full"
               />
               <div className="absolute bottom-6 font-bold left-0 right-0 mx-auto flex justify-center items-center">
                 <span className="py-2 px-6 bg-[#040d126b] rounded-md text-white group-hover:bg-[#040D12] ">
-                  {c}{" "}
+                  {c.name}
                 </span>
               </div>
             </div>

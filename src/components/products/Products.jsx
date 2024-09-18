@@ -5,14 +5,11 @@ import "react-multi-carousel/lib/styles.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaNairaSign } from "react-icons/fa6";
 
-function Products({ title }) {
-
-
-
-  const products = [
-    [1, 2, 3],
-    [4, 5, 6],
-  ];
+function Products({ title, products }) {
+  // const products = [
+  //   [1, 2, 3],
+  //   [4, 5, 6],
+  // ];
 
   const responsive = {
     superLargeDesktop: {
@@ -73,17 +70,21 @@ function Products({ title }) {
           return (
             <div key={i} className="flex flex-col mb-2 justify-start gap-2">
               {p.map((pl, j) => (
-                <Link key={j} className="flex justify-start items-start border dark:border-slate-800 " to="#">
+                <Link
+                  key={j}
+                  className="flex justify-start items-start border dark:border-slate-800 "
+                  to="#"
+                >
                   <img
                     className="w-[110px] h-[110px]"
-                    src={`/images/products/${pl}.webp`}
+                    src={pl.images[0]}
                     alt=""
                   />
                   <div className="px-8 py-4 flex justify-start items-start gap-1 flex-col  dark:text-[#fff9e3]  text-slate-600">
-                    <h2>Product Name </h2>
+                    <h2>{pl.name} </h2>
                     <div className="flex justify-center items-center ">
                       <FaNairaSign />
-                      <span className=" text-lg font-bold">2000</span>
+                      <span className=" text-lg font-bold">{pl.price}</span>
                     </div>
                   </div>
                 </Link>

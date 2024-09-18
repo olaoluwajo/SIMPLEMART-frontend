@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
@@ -13,26 +13,42 @@ import { FaThList } from "react-icons/fa";
 import ShopProducts from "../components/products/ShopProducts";
 import Pagination from "../components/Pagination";
 
-function Shops() {
-  const [filter, setFilter] = useState(true);
-  const categorys = [
-    "Mobiles",
-    "Laptops",
-    "Speakers",
-    "Top wear",
-    "Footwear",
-    "Watches",
-    "Home Decor",
-    "Smart Watches",
-  ];
+import { useDispatch, useSelector } from "react-redux";
+import { price_range_product } from "../store/reducers/homeReducer";
 
-  const [state, setState] = useState({ values: [50, 1500] });
+function Shops() {
+  // const categorys = [
+  //   "Mobiles",
+  //   "Laptops",
+  //   "Speakers",
+  //   "Top wear",
+  //   "Footwear",
+  //   "Watches",
+  //   "Home Decor",
+  //   "Smart Watches",
+  // ];
+
+  const { categories, priceRange, latest_product, products } = useSelector(
+    (state) => state.home
+  );
+
+  useEffect(() => {
+    setState({
+      values: [priceRange.low, priceRange.high],
+    });
+  }, [priceRange]);
+
+  // const [state, setState] = useState({ values: [50, 1500] });
+  const [state, setState] = useState({
+    values: [priceRange.low, priceRange.high],
+  });
   const [rating, setRating] = useState("");
   const [styles, setStyles] = useState("grid");
 
   const [parPage, setParPage] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
 
+  const [filter, setFilter] = useState(true);
   return (
     <div className="dark:bg-[#040D12]">
       <Header />
@@ -76,17 +92,17 @@ function Shops() {
                 Category
               </h2>
               <div className="py-2">
-                {categorys.map((c, i) => (
+                {categories.map((c, i) => (
                   <div
                     key={i}
                     className="flex justify-start items-center gap-2 py-1"
                   >
-                    <input type="checkbox" id={c} />
+                    <input type="checkbox" id={c.name} />
                     <label
                       className="text-slate-600 dark:text-white block cursor-pointer"
-                      htmlFor={c}
+                      htmlFor={c.name}
                     >
-                      {c}
+                      {c.name}
                     </label>
                   </div>
                 ))}
@@ -99,8 +115,8 @@ function Shops() {
 
                 <Range
                   step={5}
-                  min={50}
-                  max={1500}
+                  min={priceRange.low}
+                  max={priceRange.high}
                   values={state.values}
                   onChange={(values) => setState({ values })}
                   renderTrack={({ props, children }) => (
@@ -257,7 +273,7 @@ function Shops() {
               </div>
 
               <div className="py-5 flex flex-col gap-4 md:hidden">
-                <Products title="Latest Product" />
+                <Products title="Latest Product" products={latest_product} />
               </div>
             </div>
 

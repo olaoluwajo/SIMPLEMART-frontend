@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import Rating from "../Rating";
 import { FaEye, FaRegHeart } from "react-icons/fa";
 import { FaNairaSign } from "react-icons/fa6";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
-function FeatureProducts() {
+function  FeatureProducts({products}) {
   return (
     <div className="w-[85%] flex flex-wrap mx-auto ">
       <div className="w-full">
@@ -15,19 +16,23 @@ function FeatureProducts() {
       </div>
 
       <div className="w-full grid grid-cols-4 md-lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-6">
-        {[1, 2, 3, 4, 5, 6].map((p, i) => (
+        {products.map((p, i) => (
           <div
             key={i}
             className="border dark:border-slate-800 group transition-all duration-500 hover:shadow-md dark:hover:shadow-slate-400 hover:-mt-3"
           >
             <div className="relative overflow-hidden ">
-              <div className="flex justify-center items-center absolute text-white    size-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2  z-10">
-                8%
-              </div>
+              {p.discount ? (
+                <div className="flex justify-center items-center absolute text-white    size-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2  z-10">
+                  {p.discount}%
+                </div>
+              ) : (
+                ""
+              )}
               <img
                 className="object-fill md-lg:h-[200px] w-full h-[300px] group-hover:scale-[1.1] duration-500 transition-all "
-                src={`/images/products/${i + 1}.webp`}
-                alt={`Product ${p}`}
+                src={p.images[1]}
+                alt={`Product ${p.name}`}
               />
 
               <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">
@@ -48,15 +53,15 @@ function FeatureProducts() {
               </ul>
             </div>
             <div className="py-3 text-slate-600 dark:text-[#fff9e3]  px-2">
-              <h2 className="font-bold">Product Name </h2>
+              <h2 className="font-bold">{p.name} </h2>
               <div className="flex justify-start items-center gap-3">
                 <div className="flex justify-center items-center ">
                   <FaNairaSign />
-                  <span className="text-md font-semibold">656</span>
+                  <span className="text-md font-semibold">{p.price}</span>
                 </div>
               </div>
               <div className="flex">
-                <Rating ratings={4.5} />
+                <Rating ratings={p.rating} />
               </div>
             </div>
           </div>
