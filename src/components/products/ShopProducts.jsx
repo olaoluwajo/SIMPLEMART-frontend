@@ -5,16 +5,9 @@ import Rating from "../Rating";
 import { FaNairaSign } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
-
 function ShopProducts({ styles }) {
+  const { products } = useSelector((state) => state.home);
 
-    const {
-      products
-     
-    } = useSelector((state) => state.home);
-
-
-  
   return (
     <div
       className={`w-full grid ${
@@ -74,6 +67,6 @@ function ShopProducts({ styles }) {
       ))}
     </div>
   );
-};
+}
 
 export default ShopProducts;

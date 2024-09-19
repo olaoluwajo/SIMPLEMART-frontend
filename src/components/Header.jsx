@@ -444,7 +444,10 @@ function Header() {
                   {categories.map((c, i) => {
                     return (
                       <li key={i}>
-                        <Link className="flex justify-start items-center gap-2 px-[24px] py-[6px]  hover:bg-[#059473] hover:text-white font-semibold cursor-pointer">
+                        <Link
+                          to={`/products?category=${c.name}`}
+                          className="flex justify-start items-center gap-2 px-[24px] py-[6px]  hover:bg-[#059473] hover:text-white font-semibold cursor-pointer"
+                        >
                           <img
                             src={c.image}
                             className="w-[30px] h-[30px] rounded-full overflow-hidden"

@@ -6,6 +6,7 @@ import Delivery from "./pages/Delivery";
 import Details from "./pages/Details";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import CategoryShop from "./pages/CategoryShop";
 import { get_categories } from "./store/reducers/homeReducer";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -28,6 +29,7 @@ function App() {
         <Route path="/shops" element={<Shops />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/delivery" element={<Delivery />} />
+        <Route path="/products?" element={<CategoryShop />} />
         <Route path="/product/details/:slug" element={<Details />} />
       </Routes>
     </BrowserRouter>

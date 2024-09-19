@@ -101,7 +101,7 @@ export const homeReducer = createSlice({
         state.priceRange = payload.priceRange;
       })
       .addCase(query_products.fulfilled, (state, { payload }) => {
-        // console.log(payload);
+        console.log(payload);
         state.products = payload.products;
         state.totalProduct = payload.totalProduct;
         state.perPage = payload.perPage;

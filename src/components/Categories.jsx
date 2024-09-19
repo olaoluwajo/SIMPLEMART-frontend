@@ -76,16 +76,12 @@ function Categories() {
         {categories.map((c, i) => (
           <Link
             key={i}
-            to="#"
+            to={`/products?category=${c.name}`}
             className="h-[185px] border block  bg-white mx-2"
           >
-            <div className="group hover:scale-110 transition-all w-full h-full relative p-3  ">
-              <img
-                src={c.image}
-                alt=""
-                className="w-full"
-              />
-              <div className="absolute bottom-6 font-bold left-0 right-0 mx-auto flex justify-center items-center">
+            <div className="relative w-full h-full p-3 transition-all group hover:scale-110 ">
+              <img src={c.image} alt="" className="w-full" />
+              <div className="absolute left-0 right-0 flex items-center justify-center mx-auto font-bold bottom-6">
                 <span className="py-2 px-6 bg-[#040d126b] rounded-md text-white group-hover:bg-[#040D12] ">
                   {c.name}
                 </span>
