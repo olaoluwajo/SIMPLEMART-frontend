@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
@@ -14,7 +15,10 @@ import ShopProducts from "../components/products/ShopProducts";
 import Pagination from "../components/Pagination";
 
 import { useDispatch, useSelector } from "react-redux";
-import { price_range_product } from "../store/reducers/homeReducer";
+import {
+  price_range_product,
+  query_products,
+} from "../store/reducers/homeReducer";
 
 function Shops() {
   // const categorys = [
@@ -27,10 +31,20 @@ function Shops() {
   //   "Home Decor",
   //   "Smart Watches",
   // ];
+  const dispatch = useDispatch();
 
-  const { categories, priceRange, latest_product, products } = useSelector(
-    (state) => state.home
-  );
+  const {
+    products,
+    categories,
+    priceRange,
+    latest_product,
+    totalProduct,
+    perPage,
+  } = useSelector((state) => state.home);
+
+  useEffect(() => {
+    dispatch(price_range_product());
+  }, [dispatch]);
 
   useEffect(() => {
     setState({
@@ -42,22 +56,51 @@ function Shops() {
   const [state, setState] = useState({
     values: [priceRange.low, priceRange.high],
   });
+
   const [rating, setRating] = useState("");
   const [styles, setStyles] = useState("grid");
-
-  const [parPage, setParPage] = useState(1);
+  // const [perPage, setPerPage] = useState(2);
   const [pageNumber, setPageNumber] = useState(1);
-
   const [filter, setFilter] = useState(true);
+  const [category, setCategory] = useState("");
+  const [sortPrice, setSortPrice] = useState("");
+  const queryCategory = (e, value) => {
+    if (e.target.checked) {
+      setCategory(value);
+    } else {
+      setCategory("");
+    }
+  };
+
+  useEffect(() => {
+    dispatch(
+      query_products({
+        low: state.values[0],
+        high: state.values[1],
+        category,
+        rating,
+        sortPrice,
+        pageNumber,
+      })
+    );
+  }, [
+    state.values[0],
+    state.values[1],
+    category,
+    rating,
+    sortPrice,
+    pageNumber,
+  ]);
+
   return (
     <div className="dark:bg-[#040D12]">
       <Header />
       <section className='bg-[url("/images/banner/shop.png")] h-[220px]  bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-            <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
+            <div className="flex flex-col items-center justify-center w-full h-full gap-1 text-white">
               <h2 className="text-3xl font-bold">Shop Page </h2>
-              <div className="flex justify-center items-center gap-2 text-2xl w-full">
+              <div className="flex items-center justify-center w-full gap-2 text-2xl">
                 <Link to="/">Home</Link>
                 <span className="pt-1">
                   <IoIosArrowForward />
@@ -74,13 +117,13 @@ function Shops() {
           <div className={` md:block hidden ${!filter ? "mb-6" : "mb-0"} `}>
             <button
               onClick={() => setFilter(!filter)}
-              className="text-center w-full py-2 px-3 bg-indigo-500 text-white"
+              className="w-full px-3 py-2 text-center text-white bg-indigo-500"
             >
               Filter Product
             </button>
           </div>
 
-          <div className="w-full flex flex-wrap">
+          <div className="flex flex-wrap w-full">
             <div
               className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 ${
                 filter
@@ -88,18 +131,28 @@ function Shops() {
                   : "md:h-auto md:overflow-auto md:mb-0"
               } `}
             >
-              <h2 className="text-3xl font-bold mb-3 dark:text-white text-slate-600">
-                Category
-              </h2>
+              <div className="flex ">
+                <h2 className="mb-3 text-3xl font-bold dark:text-white text-slate-600">
+                  Category
+                </h2>
+                <span className="font-bold text-green-600">
+                  ({categories.length})
+                </span>
+              </div>
               <div className="py-2">
                 {categories.map((c, i) => (
                   <div
                     key={i}
-                    className="flex justify-start items-center gap-2 py-1"
+                    className="flex items-center justify-start gap-2 py-1"
                   >
-                    <input type="checkbox" id={c.name} />
+                    <input
+                      type="checkbox"
+                      id={c.name}
+                      checked={category === c.name ? true : false}
+                      onChange={(e) => queryCategory(e, c.name)}
+                    />
                     <label
-                      className="text-slate-600 dark:text-white block cursor-pointer"
+                      className="block cursor-pointer text-slate-600 dark:text-white"
                       htmlFor={c.name}
                     >
                       {c.name}
@@ -108,8 +161,8 @@ function Shops() {
                 ))}
               </div>
 
-              <div className="py-2 flex flex-col gap-5">
-                <h2 className="text-3xl font-bold mb-3 dark:text-white text-slate-600">
+              <div className="flex flex-col gap-5 py-2">
+                <h2 className="mb-3 text-3xl font-bold dark:text-white text-slate-600">
                   Price
                 </h2>
 
@@ -135,21 +188,21 @@ function Shops() {
                   )}
                 />
                 <div>
-                  <span className=" dark:text-white text-slate-800 font-bold text-lg">
+                  <span className="text-lg font-bold dark:text-white text-slate-800">
                     ${Math.floor(state.values[0])} - $
                     {Math.floor(state.values[1])}
                   </span>
                 </div>
               </div>
 
-              <div className="py-3 flex flex-col gap-4">
-                <h2 className="text-3xl font-bold mb-3 text-slate-600 dark:text-white">
+              <div className="flex flex-col gap-4 py-3">
+                <h2 className="mb-3 text-3xl font-bold text-slate-600 dark:text-white">
                   Rating
                 </h2>
                 <div className="flex flex-col gap-3">
                   <div
                     onClick={() => setRating(5)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                    className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
                   >
                     <span>
                       <AiFillStar />
@@ -170,7 +223,7 @@ function Shops() {
 
                   <div
                     onClick={() => setRating(4)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                    className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
                   >
                     <span>
                       <AiFillStar />
@@ -191,7 +244,7 @@ function Shops() {
 
                   <div
                     onClick={() => setRating(3)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                    className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
                   >
                     <span>
                       <AiFillStar />
@@ -212,7 +265,7 @@ function Shops() {
 
                   <div
                     onClick={() => setRating(2)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                    className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
                   >
                     <span>
                       <AiFillStar />
@@ -233,7 +286,7 @@ function Shops() {
 
                   <div
                     onClick={() => setRating(1)}
-                    className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                    className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
                   >
                     <span>
                       <AiFillStar />
@@ -252,7 +305,7 @@ function Shops() {
                     </span>
                   </div>
 
-                  <div className="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer">
+                  <div className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer">
                     <span>
                       <CiStar />
                     </span>
@@ -272,28 +325,29 @@ function Shops() {
                 </div>
               </div>
 
-              <div className="py-5 flex flex-col gap-4 md:hidden">
+              <div className="flex flex-col gap-4 py-5 md:hidden">
                 <Products title="Latest Product" products={latest_product} />
               </div>
             </div>
 
             <div className="w-9/12 md-lg:w-8/12 md:w-full">
               <div className="pl-8 md:pl-0">
-                <div className="py-4 bg-white dark:bg-slate-800 mb-10 px-3 rounded-md flex justify-between items-start border dark:border-slate-700">
+                <div className="flex items-start justify-between px-3 py-4 mb-10 bg-white border rounded-md dark:bg-slate-800 dark:border-slate-700">
                   <h2 className="text-lg font-medium text-slate-600 dark:text-slate-500">
-                    14 Products
+                    {products.length} Products
                   </h2>
-                  <div className="flex justify-center items-center gap-3">
+                  <div className="flex items-center justify-center gap-3">
                     <select
-                      className="p-1 border outline-0 text-slate-600 font-semibold"
+                      className="p-1 font-semibold border outline-0 text-slate-600"
                       name=""
                       id=""
+                      onChange={(e) => setSortPrice(e.target.value)}
                     >
                       <option value="">Sort By</option>
                       <option value="low-to-high">Low to High Price</option>
                       <option value="high-to-low">High to Low Price </option>
                     </select>
-                    <div className="flex justify-center items-start gap-4 md-lg:hidden">
+                    <div className="flex items-start justify-center gap-4 md-lg:hidden">
                       <div
                         onClick={() => setStyles("grid")}
                         className={`p-2 ${
@@ -315,17 +369,18 @@ function Shops() {
                 </div>
 
                 <div className="pb-8">
-                  <ShopProducts styles={styles} />
+                  <ShopProducts styles={styles} products={products} />
                 </div>
-
                 <div>
-                  <Pagination
-                    pageNumber={pageNumber}
-                    setPageNumber={setPageNumber}
-                    totalItem={10}
-                    parPage={parPage}
-                    showItem={Math.floor(10 / 3)}
-                  />
+                  {totalProduct > perPage && (
+                    <Pagination
+                      pageNumber={pageNumber}
+                      setPageNumber={setPageNumber}
+                      totalItem={totalProduct}
+                      perPage={perPage}
+                      showItem={Math.floor(totalProduct / perPage)}
+                    />
+                  )}
                 </div>
               </div>
             </div>

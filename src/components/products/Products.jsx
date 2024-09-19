@@ -32,12 +32,12 @@ function Products({ title, products }) {
 
   function ButtonGroup({ next, previous }) {
     return (
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="text-xl font-bold  dark:text-[#fff9e3]  text-slate-600">
           {" "}
           {title}{" "}
         </div>
-        <div className="flex justify-center items-center gap-3 text-slate-600">
+        <div className="flex items-center justify-center gap-3 text-slate-600">
           <button
             onClick={() => previous()}
             className="w-[30px] h-[30px] flex justify-center items-center bg-slate-300 border border-slate-200"
@@ -56,7 +56,7 @@ function Products({ title, products }) {
   }
 
   return (
-    <div className="flex gap-8 flex-col-reverse ">
+    <div className="flex flex-col-reverse gap-8 ">
       <Carousel
         autoPlay={false}
         infinite={true}
@@ -68,11 +68,11 @@ function Products({ title, products }) {
       >
         {products.map((p, i) => {
           return (
-            <div key={i} className="flex flex-col mb-2 justify-start gap-2">
+            <div key={i} className="flex flex-col justify-start gap-2 mb-2">
               {p.map((pl, j) => (
                 <Link
                   key={j}
-                  className="flex justify-start items-start border dark:border-slate-800 "
+                  className="flex items-start justify-start border dark:border-slate-800 "
                   to="#"
                 >
                   <img
@@ -82,9 +82,9 @@ function Products({ title, products }) {
                   />
                   <div className="px-8 py-4 flex justify-start items-start gap-1 flex-col  dark:text-[#fff9e3]  text-slate-600">
                     <h2>{pl.name} </h2>
-                    <div className="flex justify-center items-center ">
+                    <div className="flex items-center justify-center ">
                       <FaNairaSign />
-                      <span className=" text-lg font-bold">{pl.price}</span>
+                      <span className="text-lg font-bold ">{pl.price}</span>
                     </div>
                   </div>
                 </Link>

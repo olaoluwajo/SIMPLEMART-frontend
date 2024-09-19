@@ -25,8 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Header() {
   const { dark, darkModeHandler } = useContext(DarkModeContext);
 
-    const { categories } = useSelector((state) => state.home);
-
+  const { categories } = useSelector((state) => state.home);
 
   const { pathname } = useLocation();
 
@@ -438,22 +437,21 @@ function Header() {
               <div
                 className={`${
                   categoryShow ? "h-0" : "h-[400px] md-lg:h-[300px]"
-                } overflow-hidden transition-all md-lg:relative duration-500 absolute z-[999] bg-[#dbf3ed] dark:bg-[#232D3F]  w-full border-x`}
+                } overflow-hidden transition-all md-lg:relative duration-500 absolute z-[9999] bg-[#dbf3ed] dark:bg-[#232D3F]  w-full border-x `}
               >
                 {" "}
                 <ul className="py-2 font-medium text-slate-800 dark:text-slate-50 ">
                   {categories.map((c, i) => {
                     return (
-                      <li
-                        key={i}
-                        className="flex justify-start items-center gap-2 px-[24px] py-[6px]"
-                      >
-                        <img
-                          src={c.image}
-                          className="w-[30px] h-[30px] rounded-full overflow-hidden"
-                          alt=""
-                        />
-                        <Link className="block text-sm">{c.name}</Link>
+                      <li key={i}>
+                        <Link className="flex justify-start items-center gap-2 px-[24px] py-[6px]  hover:bg-[#059473] hover:text-white font-semibold cursor-pointer">
+                          <img
+                            src={c.image}
+                            className="w-[30px] h-[30px] rounded-full overflow-hidden"
+                            alt=""
+                          />
+                          <span className="block text-sm">{c.name} </span>
+                        </Link>
                       </li>
                     );
                   })}
@@ -480,7 +478,6 @@ function Header() {
                           key={i}
                           className="text-slate-600"
                         >
-                       
                           {c.name}
                         </option>
                       ))}

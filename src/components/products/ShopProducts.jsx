@@ -3,9 +3,18 @@ import { FaEye, FaRegHeart } from "react-icons/fa";
 import { RiShoppingCartLine } from "react-icons/ri";
 import Rating from "../Rating";
 import { FaNairaSign } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 
 function ShopProducts({ styles }) {
+
+    const {
+      products
+     
+    } = useSelector((state) => state.home);
+
+
+  
   return (
     <div
       className={`w-full grid ${
@@ -14,7 +23,7 @@ function ShopProducts({ styles }) {
           : "grid-cols-1 md-lg:grid-cols-2 md:grid-cols-2"
       } gap-4 `}
     >
-      {[1, 2, 3, 4, 5, 6,7,8].map((p, i) => (
+      {products.map((p, i) => (
         <div
           key={i}
           className={`flex group transition-all duration-1000 hover:shadow-md dark:hover:shadow-slate-400 hover:-translate-y-3 ${
@@ -32,11 +41,11 @@ function ShopProducts({ styles }) {
           >
             <img
               className="h-[240px] rounded-md md:h-[270px] xs:h-[170px] w-full object-cover"
-              src={`/images/products/${i + 1}.webp`}
-              alt=""
+              src={p.images[0]}
+              alt={p.name}
             />
 
-            <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">
+            <ul className="absolute flex items-center justify-center w-full gap-2 transition-all duration-700 -bottom-10 group-hover:bottom-3">
               <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
                 <FaRegHeart />
               </li>
@@ -49,15 +58,15 @@ function ShopProducts({ styles }) {
             </ul>
           </div>
 
-          <div className="dark:text-white flex justify-start items-start flex-col gap-1 p-4">
-            <h2 className="font-bold">Product Name </h2>
-            <div className="flex justify-start items-center gap-3">
-              <div className="flex justify-center items-center ">
+          <div className="flex flex-col items-start justify-start gap-1 p-4 dark:text-white">
+            <h2 className="font-bold"> {p.name} </h2>
+            <div className="flex items-center justify-start gap-3">
+              <div className="flex items-center justify-center ">
                 <FaNairaSign />
-                <span className="text-md font-semibold">656</span>
+                <span className="font-semibold text-md"> {p.price}</span>
               </div>
               <div className="flex">
-                <Rating ratings={4.5} />
+                <Rating ratings={p.rating} />
               </div>
             </div>
           </div>

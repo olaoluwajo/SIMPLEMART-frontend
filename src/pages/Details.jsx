@@ -63,9 +63,9 @@ function Details() {
       <section className='bg-[url("/images/banner/shop.png")] h-[220px]   bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-            <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
+            <div className="flex flex-col items-center justify-center w-full h-full gap-1 text-white">
               <h2 className="text-3xl font-bold">Product Details </h2>
-              {/* <div className="flex justify-center items-center gap-2 text-2xl w-full">
+              {/* <div className="flex items-center justify-center w-full gap-2 text-2xl">
                 <Link to="/">Home</Link>
                 <span className="pt-1">
                   <IoIosArrowForward />
@@ -80,7 +80,7 @@ function Details() {
       <section>
         <div className="bg-slate-100 font-bold  dark:bg-[#232D3F]  py-5 mb-5">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-            <div className="flex justify-start items-center text-md text-slate-600 dark:text-white w-full">
+            <div className="flex items-center justify-start w-full text-md text-slate-600 dark:text-white">
               <Link to="/">Home</Link>
               <span className="pt-1">
                 <IoIosArrowForward />
@@ -97,11 +97,11 @@ function Details() {
 
       <section>
         <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-          <div className="grid grid-cols-2 md-lg:grid-cols-1 gap-8">
+          <div className="grid grid-cols-2 gap-8 md-lg:grid-cols-1">
             <div>
               <div className="p-5 border dark:border-slate-700">
                 <img
-                  className="h-[400px] w-full"
+                  className="h-[400px] object-contain w-full"
                   src={
                     image
                       ? `/images/products/${image}.webp`
@@ -135,25 +135,25 @@ function Details() {
             </div>
 
             <div className="flex flex-col gap-5">
-              <div className="text-3xl text-slate-600 dark:text-white font-bold">
+              <div className="text-3xl font-bold text-slate-600 dark:text-white">
                 <h3>Product Name </h3>
               </div>
-              <div className="flex justify-start items-center gap-4">
+              <div className="flex items-center justify-start gap-4">
                 <div className="flex text-xl">
                   <Rating ratings={3.5} />
                 </div>
                 <span className="text-green-500">(24 reviews)</span>
               </div>
 
-              <div className="text-2xl text-red-500 font-bold flex gap-3">
+              <div className="flex gap-3 text-2xl font-bold text-red-500">
                 {discount !== 0 ? (
                   <>
                     Price :
-                    <div className="flex justify-center items-center line-through ">
+                    <div className="flex items-center justify-center line-through ">
                       <FaNairaSign size={17} />
                       <h2 className="">500</h2>
                     </div>
-                    <div className="flex justify-center items-center text-green-400 ">
+                    <div className="flex items-center justify-center text-green-400 ">
                       <FaNairaSign size={17} />
                       <h2>
                         {500 - Math.floor((500 * discount) / 100)} (-{discount}
@@ -162,7 +162,7 @@ function Details() {
                     </div>
                   </>
                 ) : (
-                  <div className="flex justify-center items-center text-green-400 ">
+                  <div className="flex items-center justify-center text-green-400 ">
                     Price : <FaNairaSign size={17} />
                     <h2 className="text-green-400"> 200 </h2>
                   </div>
@@ -181,10 +181,14 @@ function Details() {
               <div className="flex gap-3 pb-10 border-b">
                 {stock ? (
                   <>
-                    <div className="flex bg-slate-200 h-[50px] justify-center items-center text-xl font-bold">
-                      <div className="px-6 cursor-pointer">-</div>
+                    <div className="flex bg-slate-200 h-[50px] justify-center items-center text-xl font-bold overflow-hidden">
+                      <div className="p-6 cursor-pointer active:bg-red-600 active:text-white">
+                        -
+                      </div>
                       <div className="px-6">2</div>
-                      <div className="px-6 cursor-pointer">+</div>
+                      <div className="p-6 cursor-pointer active:bg-green-600 active:text-white">
+                        +
+                      </div>
                     </div>
                     <div>
                       <button className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-green-700 text-white">
@@ -202,7 +206,7 @@ function Details() {
                 </div>
               </div>
 
-              <div className="flex py-5 gap-5">
+              <div className="flex gap-5 py-5">
                 <div className="w-[150px] text-black dark:text-white font-bold text-xl flex flex-col gap-5">
                   <span>Availability</span>
                   <span>Share On</span>
@@ -211,7 +215,7 @@ function Details() {
                   <span className={`text-${stock ? "green" : "red"}-500`}>
                     {stock ? `In Stock(${stock})` : "Out Of Stock"}
                   </span>{" "}
-                  <ul className="flex justify-start items-center gap-3">
+                  <ul className="flex items-center justify-start gap-3">
                     <li>
                       <a
                         className="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-indigo-500 rounded-full text-white"
@@ -329,12 +333,12 @@ function Details() {
                   <h2 className="font-bold">From Simple Shop</h2>
                 </div>
 
-                <div className="flex flex-col gap-5 mt-3 border dark:border-slate-600 p-3">
+                <div className="flex flex-col gap-5 p-3 mt-3 border dark:border-slate-600">
                   {[3, 4].map((p, i) => {
                     return (
                       <Link
                         key={i}
-                        className="block hover:shadow-md dark:shadow-slate-400 p-2 mb-2 hover:scale-95 transition-all duration-500"
+                        className="block p-2 mb-2 transition-all duration-500 hover:shadow-md dark:shadow-slate-400 hover:scale-95"
                       >
                         <div className="relative h-[270px]">
                           <img
@@ -348,11 +352,11 @@ function Details() {
                             </div>
                           )}
                         </div>
-                        <h2 className="text-slate-600 dark:text-slate-100 py-1 font-bold">
+                        <h2 className="py-1 font-bold text-slate-600 dark:text-slate-100">
                           Product Name
                         </h2>
                         <div className="flex gap-2">
-                          <span className="flex justify-center items-center  text-slate-600 dark:text-slate-100">
+                          <span className="flex items-center justify-center text-slate-600 dark:text-slate-100">
                             <FaNairaSign />
                             <h2 className="text-lg font-bold">434</h2>
                           </span>
@@ -372,7 +376,7 @@ function Details() {
 
       <section>
         <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-          <h2 className="text-2xl py-8 text-slate-600 dark:text-slate-100">
+          <h2 className="py-8 text-2xl text-slate-600 dark:text-slate-100">
             Related Products{" "}
           </h2>
           <div>
@@ -406,7 +410,7 @@ function Details() {
                           <img
                             src={`/images/products/${p}.webp`}
                             alt=""
-                            className="w-full h-full object-contain"
+                            className="object-contain w-full h-full"
                           />
                           <div className="absolute h-full w-full top-0 left-0 bg-[#000] opacity-25 hover:opacity-50 transition-all duration-500"></div>
                         </div>
@@ -417,12 +421,12 @@ function Details() {
                         )}
                       </div>
 
-                      <div className="p-4 flex flex-col gap-1">
-                        <h2 className="text-slate-600 dark:text-slate-100 text-lg font-bold">
+                      <div className="flex flex-col gap-1 p-4">
+                        <h2 className="text-lg font-bold text-slate-600 dark:text-slate-100">
                           Product Name{" "}
                         </h2>
-                        <div className="flex justify-start items-center gap-3">
-                          <span className="flex justify-center items-center  text-slate-600 dark:text-slate-100">
+                        <div className="flex items-center justify-start gap-3">
+                          <span className="flex items-center justify-center text-slate-600 dark:text-slate-100">
                             <FaNairaSign />
                             <h2 className="text-lg font-bold">434</h2>
                           </span>
@@ -437,7 +441,7 @@ function Details() {
               })}
             </Swiper>
           </div>
-          <div className="w-full flex justify-center items-center py-8">
+          <div className="flex items-center justify-center w-full py-8">
             <div className="custom_bullet justify-center gap-3 !w-auto"></div>
           </div>
         </div>

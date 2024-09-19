@@ -36,7 +36,25 @@ export const price_range_product = createAsyncThunk(
   async (_, { fulfillWithValue }) => {
     try {
       const { data } = await api.get("/home/price-range-latest-product");
-      console.log(data);
+      // console.log(data);
+      return fulfillWithValue(data);
+    } catch (error) {
+      console.log(error.respone);
+    }
+  }
+);
+
+
+// END METHODS ----------------------------------------------------------------
+
+export const query_products = createAsyncThunk(
+  "product/query_products",
+  async (query, { fulfillWithValue }) => {
+    try {
+      const { data } = await api.get(
+        `/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber} `
+      );
+      //  console.log(data)
       return fulfillWithValue(data);
     } catch (error) {
       console.log(error.respone);
@@ -55,6 +73,8 @@ export const homeReducer = createSlice({
   initialState: {
     categories: [],
     products: [],
+    totalProduct: 0,
+    perPage: 3,
     latest_product: [],
     topRated_product: [],
     discount_product: [],
@@ -75,6 +95,16 @@ export const homeReducer = createSlice({
         state.latest_product = payload.latest_product;
         state.topRated_product = payload.topRated_product;
         state.discount_product = payload.discount_product;
+      })
+      .addCase(price_range_product.fulfilled, (state, { payload }) => {
+        state.latest_product = payload.latest_product;
+        state.priceRange = payload.priceRange;
+      })
+      .addCase(query_products.fulfilled, (state, { payload }) => {
+        // console.log(payload);
+        state.products = payload.products;
+        state.totalProduct = payload.totalProduct;
+        state.perPage = payload.perPage;
       });
   },
 });
