@@ -14,22 +14,22 @@ export const get_categories = createAsyncThunk(
   }
 );
 
-
 // END METHODS ----------------------------------------------------------------
 
-export const get_products = createAsyncThunk("product/get_products", async () => {
-  try {
-    const { data } = await api.get("/home/get-products");
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error(error.response);
+export const get_products = createAsyncThunk(
+  "product/get_products",
+  async () => {
+    try {
+      const { data } = await api.get("/home/get-products");
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error(error.response);
+    }
   }
-});
-
+);
 
 // END METHODS ----------------------------------------------------------------
-
 
 export const price_range_product = createAsyncThunk(
   "product/price_range_product",
@@ -44,7 +44,6 @@ export const price_range_product = createAsyncThunk(
   }
 );
 
-
 // END METHODS ----------------------------------------------------------------
 
 export const query_products = createAsyncThunk(
@@ -52,7 +51,13 @@ export const query_products = createAsyncThunk(
   async (query, { fulfillWithValue }) => {
     try {
       const { data } = await api.get(
-        `/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber} `
+        `/home/query-products?category=${query.category}&&rating=${
+          query.rating
+        }&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${
+          query.sortPrice
+        }&&pageNumber=${query.pageNumber}&&searchValue=${
+          query.searchValue ? query.searchValue : ""
+        } `
       );
       //  console.log(data)
       return fulfillWithValue(data);
@@ -62,11 +67,7 @@ export const query_products = createAsyncThunk(
   }
 );
 
-
 // END METHODS ----------------------------------------------------------------
-
-
-
 
 export const homeReducer = createSlice({
   name: "home",
@@ -108,7 +109,5 @@ export const homeReducer = createSlice({
       });
   },
 });
-
-
 
 export default homeReducer.reducer;

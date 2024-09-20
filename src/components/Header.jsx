@@ -18,12 +18,14 @@ import {
 import { useContext, useState } from "react";
 import { DarkModeContext } from "../context/DackModeContext";
 import { FaSquareXTwitter, FaHeart, FaCartShopping } from "react-icons/fa6";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./../Logo";
 import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
   const { dark, darkModeHandler } = useContext(DarkModeContext);
+
+  const navigate = useNavigate();
 
   const { categories } = useSelector((state) => state.home);
 
@@ -40,6 +42,10 @@ function Header() {
 
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState("");
+
+  const search = () => {
+    navigate(`/products/search?category=${category}&&value=${searchValue}`);
+  };
 
   return (
     <div className="w-full  border-b-2 dark:border-slate-600 border-slate-200  bg-[#fefefa] dark:bg-[#040D12]">
@@ -494,7 +500,10 @@ function Header() {
                     id=""
                     placeholder="What do you need"
                   />
-                  <button className="bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white">
+                  <button
+                    onClick={search}
+                    className="bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white"
+                  >
                     Search
                   </button>
                 </div>

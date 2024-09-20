@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useSearchParams } from "react-router-dom";
@@ -19,13 +18,12 @@ import {
   price_range_product,
   query_products,
 } from "../store/reducers/homeReducer";
-
-function CategoryShop() {
+const SearchProducts = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
-  console.log(category);
-  const dispatch = useDispatch();
+  const searchValue = searchParams.get("value");
 
+  const dispatch = useDispatch();
   const {
     products,
     categories,
@@ -49,7 +47,6 @@ function CategoryShop() {
   const [state, setState] = useState({
     values: [priceRange.low, priceRange.high],
   });
-
   const [rating, setRating] = useState("");
   const [styles, setStyles] = useState("grid");
 
@@ -65,6 +62,7 @@ function CategoryShop() {
         rating,
         sortPrice,
         pageNumber,
+        searchValue,
       })
     );
   }, [
@@ -73,9 +71,9 @@ function CategoryShop() {
     category,
     rating,
     sortPrice,
+    searchValue,
     pageNumber,
   ]);
-
   const resetRating = () => {
     setRating("");
     dispatch(
@@ -97,7 +95,9 @@ function CategoryShop() {
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex flex-col items-center justify-center w-full h-full gap-1 text-white">
-              <h2 className="text-3xl font-bold uppercase">{category} Page </h2>
+              <h2 className="text-3xl font-bold uppercase">
+                Search Product Page{" "}
+              </h2>
               <div className="flex items-center justify-center w-full gap-2 text-2xl">
                 <Link to="/">Home</Link>
                 <span className="pt-1">
@@ -128,7 +128,7 @@ function CategoryShop() {
               } `}
             >
               <div className="flex flex-col gap-5 py-2">
-                <h2 className="mb-3 text-3xl font-bold text-slate-600 dark:text-slate-100">
+                <h2 className="mb-3 text-3xl font-bold text-slate-600 dark:text-white">
                   Price
                 </h2>
 
@@ -154,14 +154,14 @@ function CategoryShop() {
                   )}
                 />
                 <div>
-                  <span className="text-lg font-bold text-slate-800 dark:text-slate-100">
+                  <span className="text-lg font-bold dark:text-white text-slate-800">
                     ${Math.floor(state.values[0])} - $
                     {Math.floor(state.values[1])}
                   </span>
                 </div>
               </div>
               <div className="flex flex-col gap-4 py-3">
-                <h2 className="mb-3 text-3xl font-bold text-slate-600 dark:text-slate-100">
+                <h2 className="mb-3 text-3xl font-bold text-slate-600 dark:text-white">
                   Rating{" "}
                 </h2>
                 <div className="flex flex-col gap-3">
@@ -265,25 +265,35 @@ function CategoryShop() {
                       <CiStar />{" "}
                     </span>
                   </div>
-                  <div
+                  {/* <div
                     onClick={resetRating}
                     className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
                   >
+                    
                     <span>
-                      <CiStar />{" "}
+                      <CiStar />
                     </span>
                     <span>
-                      <CiStar />{" "}
+                      <CiStar />
                     </span>
                     <span>
-                      <CiStar />{" "}
+                      <CiStar />
                     </span>
                     <span>
-                      <CiStar />{" "}
+                      <CiStar />
                     </span>
                     <span>
-                      <CiStar />{" "}
+                      <CiStar />
                     </span>
+                  </div> */}
+
+                  <div
+                    onClick={resetRating}
+                    className="flex items-start justify-start w-auto gap-2 text-xl text-orange-500 cursor-pointer "
+                  >
+                    <h2 className="p-2 text-sm border border-orange-500 ">
+                      Reset Rating
+                    </h2>
                   </div>
                 </div>
               </div>
@@ -295,7 +305,7 @@ function CategoryShop() {
             <div className="w-9/12 md-lg:w-8/12 md:w-full">
               <div className="pl-8 md:pl-0">
                 <div className="flex items-start justify-between px-3 py-4 mb-10 bg-white border rounded-md dark:bg-slate-800 dark:border-slate-700">
-                  <h2 className="text-lg font-medium text-slate-600 dark:text-slate-400">
+                  <h2 className="text-lg font-medium text-slate-600">
                     {" "}
                     ({totalProduct}) Products{" "}
                   </h2>
@@ -352,5 +362,5 @@ function CategoryShop() {
       <Footer />
     </div>
   );
-}
-export default CategoryShop;
+};
+export default SearchProducts;
