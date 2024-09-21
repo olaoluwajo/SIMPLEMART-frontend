@@ -34,7 +34,7 @@ function Header() {
   const [showSidebar, setShowSidebar] = useState(true);
   const [categoryShow, setCategoryShow] = useState(true);
 
-  const user = false;
+  const user = true;
   const wishlist_count = 3;
   // console.log(categories)
 
