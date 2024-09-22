@@ -21,7 +21,7 @@ export const get_products = createAsyncThunk(
   async () => {
     try {
       const { data } = await api.get("/home/get-products");
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
       console.error(error.response);

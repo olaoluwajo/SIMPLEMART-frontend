@@ -28,13 +28,14 @@ function Header() {
   const navigate = useNavigate();
 
   const { categories } = useSelector((state) => state.home);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const { pathname } = useLocation();
 
   const [showSidebar, setShowSidebar] = useState(true);
   const [categoryShow, setCategoryShow] = useState(true);
 
-  const user = true;
+  const user = false;
   const wishlist_count = 3;
   // console.log(categories)
 
@@ -96,7 +97,7 @@ function Header() {
                   </ul>
                 </div>
 
-                {user ? (
+                {userInfo ? (
                   <Link
                     to="/dashboard"
                     className="flex items-center justify-center gap-2 text-sm text-black cursor-pointer dark:text-white "
@@ -104,7 +105,7 @@ function Header() {
                     <span>
                       <FaUser />
                     </span>
-                    <span>Ola Simple</span>
+                    <span> {userInfo.name}</span>
                   </Link>
                 ) : (
                   <Link
@@ -276,7 +277,7 @@ function Header() {
                   <li>English</li>
                 </ul>
               </div>
-              {user ? (
+              {userInfo ? (
                 <Link
                   to="/dashboard"
                   className="flex items-center justify-center gap-2 text-sm text-black cursor-pointer dark:text-white "
@@ -284,7 +285,7 @@ function Header() {
                   <span>
                     <FaUser />
                   </span>
-                  <span>Ola Simple</span>
+                  <span> {userInfo.name}</span>
                 </Link>
               ) : (
                 <Link

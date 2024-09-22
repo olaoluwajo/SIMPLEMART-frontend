@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { customer_register, messageClear } from "../store/reducers/authReducer";
 import toast from "react-hot-toast";
@@ -12,9 +13,10 @@ import { FadeLoader } from "react-spinners";
 function Register() {
   const dispatch = useDispatch();
 
-  const { loading, errorMessage, successMessage } = useSelector(
+  const { loading, errorMessage, successMessage, userInfo } = useSelector(
     (state) => state.auth
   );
+  const navigate = useNavigate();
 
   const [state, setState] = useState({
     name: "",
@@ -44,7 +46,10 @@ function Register() {
       toast.error(errorMessage);
       dispatch(messageClear());
     }
-  }, [successMessage, errorMessage, dispatch]);
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [successMessage, errorMessage, userInfo]);
 
   return (
     <div>
@@ -57,7 +62,7 @@ function Register() {
       <Header />
       <div className="bg-gradient-to-l from-[#caddff] via-slate-200 dark:bg-gradient-to-l dark:from-slate-900 dark:via-slate-500">
         <div className="items-center justify-center w-full p-10">
-          <div className="grid grid-cols-2 w-[60%] mx-auto bg-white dark:bg-[#232D3F]  rounded-md">
+          <div className="grid grid-cols-2 md-lg:grid-cols-1 w-[60%] md-lg:w-[95%] mx-auto bg-white dark:bg-[#232D3F]  rounded-md">
             <div className="px-8 py-8">
               <h2 className="w-full text-xl font-bold text-center text-slate-600 dark:text-white">
                 Register{" "}
@@ -148,7 +153,7 @@ function Register() {
               </div>
             </div>
 
-            <div className="w-full h-full py-4 pr-4 ">
+            <div className="w-full h-full py-4 pr-4 md-lg:hidden">
               <img src="/images/login.jpg" alt="" className="w-full h-full" />
             </div>
           </div>

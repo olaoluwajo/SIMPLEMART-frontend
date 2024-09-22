@@ -1,11 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { customer_login, messageClear } from "../store/reducers/authReducer";
+import toast from "react-hot-toast";
+import { FadeLoader } from "react-spinners";
 
 function Login() {
+  const { loading, errorMessage, successMessage, userInfo } = useSelector(
+    (state) => state.auth
+  );
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -20,16 +31,50 @@ function Login() {
 
   const login = (e) => {
     e.preventDefault();
-    console.log(state);
+    // console.log(state);
+    dispatch(customer_login(state));
   };
+
+  useEffect(() => {
+    console.log("userInfo updated:", userInfo);
+  }, [userInfo]);
+
+  useEffect(() => {
+    const handleMessages = () => {
+      if (successMessage) {
+        toast.success(successMessage);
+      }
+      if (errorMessage) {
+        toast.error(errorMessage);
+      }
+      if (successMessage || errorMessage) {
+        dispatch(messageClear());
+      }
+    };
+
+    const handleUserInfo = () => {
+      if (userInfo) {
+        navigate("/");
+      }
+    };
+
+    handleMessages();
+    handleUserInfo();
+  }, [successMessage, errorMessage, userInfo]);
 
   return (
     <div>
+      {loading && (
+        <div className="w-screen h-screen flex flex-col justify-center items-center fixed left-0 top-0 bg-[#38303033] dark:bg-[#3830306b] z-[999]">
+          <h1 className="text-xl font-bold">Loading...</h1>
+          <FadeLoader />
+        </div>
+      )}
       <Header />
       <div className="bg-gradient-to-r from-[#caddff] via-slate-200 dark:bg-gradient-to-r dark:from-slate-900 dark:via-slate-500">
         <div className="w-full justify-center items-center p-10">
-          <div className="grid grid-cols-2 w-[60%] mx-auto dark:bg-[#232D3F]  bg-white rounded-md">
-            <div className="w-full h-full py-4 pl-4">
+          <div className="grid grid-cols-2 md-lg:grid-cols-1 md-lg:w-[95%] w-[60%] mx-auto dark:bg-[#232D3F]  bg-white rounded-md">
+            <div className="w-full h-full py-4 pl-4 md-lg:hidden ">
               <img src="/images/login.jpg" alt="" className="w-full h-full" />
             </div>
             <div className="px-8 py-8">
