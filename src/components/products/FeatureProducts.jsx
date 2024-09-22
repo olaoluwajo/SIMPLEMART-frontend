@@ -3,10 +3,32 @@ import Rating from "../Rating";
 import { FaEye, FaRegHeart } from "react-icons/fa";
 import { FaNairaSign } from "react-icons/fa6";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { add_to_cart } from "../../store/reducers/cartReducer";
 
-function  FeatureProducts({products}) {
+function FeatureProducts({ products }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+  const add_cart = (id) => {
+    if (userInfo) {
+      dispatch(
+        add_to_cart({
+          userId: userInfo.id,
+          quantity: 1,
+          productId: id,
+        })
+      );
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
+
+
+    
     <div className="w-[85%] flex flex-wrap mx-auto ">
       <div className="w-full">
         <div className="text-center flex flex-col  justify-center items-center text-2xl text-slate-600 dark:text-[#fff9e3] font-bold relative pb-[35px]">
@@ -47,7 +69,10 @@ function  FeatureProducts({products}) {
                   <FaEye />
                 </Link>
 
-                <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+                <li
+                  onClick={() => add_cart(p._id)}
+                  className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                >
                   <RiShoppingCartLine />
                 </li>
               </ul>
