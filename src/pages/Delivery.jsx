@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { Link, useLocation } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
@@ -39,7 +37,6 @@ function Delivery() {
 
   return (
     <div>
-      <Header />
       <section className='bg-[url("/images/banner/shop.png")] h-[220px]   bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
@@ -316,7 +313,6 @@ function Delivery() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }

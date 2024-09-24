@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { Link, useSearchParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { Range } from "react-range";
@@ -90,7 +88,6 @@ const SearchProducts = () => {
 
   return (
     <div className="dark:bg-[#040D12]">
-      <Header />
       <section className='bg-[url("/images/banner/shop.png")] h-[220px]  bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
@@ -359,7 +356,6 @@ const SearchProducts = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };

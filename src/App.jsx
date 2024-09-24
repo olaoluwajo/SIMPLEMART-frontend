@@ -1,4 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
 import Shops from "./pages/Shops";
 import Cart from "./pages/Cart";
@@ -11,6 +13,79 @@ import { get_categories } from "./store/reducers/homeReducer";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import SearchProducts from "./pages/SearchProducts";
+import AppLayout from "./components/products/layouts/AppLayout";
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/shops",
+        element: <Shops />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/delivery",
+        element: <Delivery />,
+      },
+      {
+        path: "/products?",
+        element: <CategoryShop />,
+      },
+      {
+        path: "/products/search?",
+        element: <SearchProducts />,
+      },
+      {
+        path: "/product/details/:slug",
+        element: <Details />,
+      },
+
+      {
+        path: "*",
+        element: <h1>Page not found</h1>,
+      },
+    ],
+  },
+]);
+
+// function App() {
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     dispatch(get_categories());
+//   }, [dispatch]);
+
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/register" element={<Register />} />
+//         <Route path="/shops" element={<Shops />} />
+//         <Route path="/cart" element={<Cart />} />
+//         <Route path="/delivery" element={<Delivery />} />
+//         <Route path="/products?" element={<CategoryShop />} />
+//         <Route path="/products/search?" element={<SearchProducts />} />
+//         <Route path="/product/details/:slug" element={<Details />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
 
 function App() {
   const dispatch = useDispatch();
@@ -18,20 +93,16 @@ function App() {
     dispatch(get_categories());
   }, [dispatch]);
 
+
+  const queryClient = new QueryClient();
+
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/shops" element={<Shops />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/delivery" element={<Delivery />} />
-        <Route path="/products?" element={<CategoryShop />} />
-        <Route path="/products/search?" element={<SearchProducts />} />
-        <Route path="/product/details/:slug" element={<Details />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </>
   );
 }
 

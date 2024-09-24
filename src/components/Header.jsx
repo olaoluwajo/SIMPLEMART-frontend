@@ -21,6 +21,7 @@ import { FaSquareXTwitter, FaHeart, FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./../Logo";
 import { useDispatch, useSelector } from "react-redux";
+import IconButton from "./IconButton";
 
 function Header() {
   const { dark, darkModeHandler } = useContext(DarkModeContext);
@@ -29,13 +30,14 @@ function Header() {
 
   const { categories } = useSelector((state) => state.home);
   const { userInfo } = useSelector((state) => state.auth);
+  const { cart_product_count } = useSelector((state) => state.cart);
 
   const { pathname } = useLocation();
 
   const [showSidebar, setShowSidebar] = useState(true);
   const [categoryShow, setCategoryShow] = useState(true);
 
-  const user = false;
+  // const user = false;
   const wishlist_count = 3;
   // console.log(categories)
 
@@ -46,6 +48,14 @@ function Header() {
 
   const search = () => {
     navigate(`/products/search?category=${category}&&value=${searchValue}`);
+  };
+
+  const redirect_cart_page = () => {
+    if (userInfo) {
+      navigate("/cart");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -216,25 +226,50 @@ function Header() {
 
                 <div className="flex items-center justify-center gap-5 md-lg:hidden">
                   <div className="flex justify-center gap-5">
-                    <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
+                    {/* <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
                       <span className="text-xl text-green-500">
                         <FaHeart />
                       </span>
                       <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
                         {wishlist_count}
                       </div>
-                    </div>
+                    </div> */}
+
                     <Link
+                      onClick={redirect_cart_page}
+                      to={"/cart"}
+                      className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+                    >
+                      <span className="text-xl text-green-500">
+                        <FaHeart />
+                      </span>
+                      {wishlist_count !== 0 && (
+                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]">
+                          {wishlist_count}
+                        </div>
+                      )}
+                    </Link>
+                    {/* <Link
+                      onClick={redirect_cart_page}
                       to={"/cart"}
                       className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
                     >
                       <span className="text-xl text-green-500">
                         <FaCartShopping />
                       </span>
-                      <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                        {wishlist_count}
-                      </div>
-                    </Link>
+                      {cart_product_count !== 0 && (
+                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]">
+                          {cart_product_count}
+                        </div>
+                      )}
+                    </Link> */}
+                    <IconButton
+                      icon={<FaCartShopping />}
+                      count={cart_product_count}
+                      onClick={redirect_cart_page}
+                      to="/cart"
+                      className="bg-[#e2e2e2]"
+                    />
                   </div>
                 </div>
               </div>
@@ -310,15 +345,18 @@ function Header() {
                 </div>
               </div>
               <Link
+                onClick={redirect_cart_page}
                 to={"/cart"}
                 className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
               >
                 <span className="text-xl text-green-500">
                   <FaCartShopping />
                 </span>
-                <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                  {wishlist_count}
-                </div>
+                {cart_product_count !== 0 && (
+                  <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                    {cart_product_count}
+                  </div>
+                )}
               </Link>
             </div>
 

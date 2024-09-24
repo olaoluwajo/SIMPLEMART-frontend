@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Banner from "../components/Banner";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+// import Footer from "../components/Footer";
+// import Header from "../components/Header";
 import FeatureProducts from "../components/products/FeatureProducts";
 import Products from "../components/products/Products";
 import Categories from "./../components/Categories";
@@ -24,7 +24,7 @@ function Home() {
 
   return (
     <div className="w-full bg-[#fefefa] dark:bg-[#040D12]">
-      <Header  />
+      {/* <Header  /> */}
       <Banner />
       <Categories  />
       <div className="py-[45px] ">
@@ -48,7 +48,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

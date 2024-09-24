@@ -5,12 +5,16 @@ import { FaNairaSign } from "react-icons/fa6";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { add_to_cart } from "../../store/reducers/cartReducer";
+import { add_to_cart, messageClear } from "../../store/reducers/cartReducer";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function FeatureProducts({ products }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+  const { errorMessage, successMessage } = useSelector((state) => state.cart);
+
   const add_cart = (id) => {
     if (userInfo) {
       dispatch(
@@ -25,10 +29,18 @@ function FeatureProducts({ products }) {
     }
   };
 
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage);
+      dispatch(messageClear());
+    }
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(messageClear());
+    }
+  }, [successMessage, errorMessage, dispatch]);
+
   return (
-
-
-    
     <div className="w-[85%] flex flex-wrap mx-auto ">
       <div className="w-full">
         <div className="text-center flex flex-col  justify-center items-center text-2xl text-slate-600 dark:text-[#fff9e3] font-bold relative pb-[35px]">

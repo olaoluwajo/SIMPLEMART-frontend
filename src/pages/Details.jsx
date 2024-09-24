@@ -1,12 +1,17 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useState } from "react";
 import Rating from "./../components/Rating";
-import { FaFacebookF, FaGithub, FaHeart, FaLinkedin, FaNairaSign, FaTwitter } from "react-icons/fa6";
+import {
+  FaFacebookF,
+  FaGithub,
+  FaHeart,
+  FaLinkedin,
+  FaNairaSign,
+  FaTwitter,
+} from "react-icons/fa6";
 import Reviews from "../components/Reviews";
 import { Navigation, Pagination } from "swiper/modules";
 // import { Pagination } from "swiper/modules";
@@ -23,7 +28,7 @@ function Details() {
   const [image, setImage] = useState("");
   const discount = 10;
   const stock = 3;
-      const [state, setState] = useState("reviews");
+  const [state, setState] = useState("reviews");
 
   const responsive = {
     superLargeDesktop: {
@@ -58,8 +63,6 @@ function Details() {
 
   return (
     <div className="bg-[#eeeeee]  dark:bg-[#040D12]">
-      <Header />
-
       <section className='bg-[url("/images/banner/shop.png")] h-[220px]   bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
@@ -446,8 +449,6 @@ function Details() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

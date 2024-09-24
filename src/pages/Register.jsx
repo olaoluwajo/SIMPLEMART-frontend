@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { customer_register, messageClear } from "../store/reducers/authReducer";
 import toast from "react-hot-toast";
 import { FadeLoader } from "react-spinners";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Register() {
   const dispatch = useDispatch();
@@ -33,7 +32,7 @@ function Register() {
 
   const register = (e) => {
     e.preventDefault();
-    console.log(state);
+    // console.log(state);
     dispatch(customer_register(state));
   };
 
@@ -51,6 +50,12 @@ function Register() {
     }
   }, [successMessage, errorMessage, userInfo]);
 
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  // Function to handle password visibility toggle
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <div>
       {loading && (
@@ -59,7 +64,6 @@ function Register() {
           <FadeLoader />
         </div>
       )}
-      <Header />
       <div className="bg-gradient-to-l from-[#caddff] via-slate-200 dark:bg-gradient-to-l dark:from-slate-900 dark:via-slate-500">
         <div className="items-center justify-center w-full p-10">
           <div className="grid grid-cols-2 md-lg:grid-cols-1 w-[60%] md-lg:w-[95%] mx-auto bg-white dark:bg-[#232D3F]  rounded-md">
@@ -101,18 +105,24 @@ function Register() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-1 mb-2">
+                  <div className="flex flex-col gap-1 mb-2 relative">
                     <label htmlFor="password">Password</label>
                     <input
                       onChange={inputHandle}
                       value={state.password}
-                      className="w-full px-3 py-2 bg-transparent border rounded-md outline-none border-slate-200 focus:border-green-500"
-                      type="password"
+                      className="  w-full px-3 py-2 border border-slate-200 outline-none bg-transparent focus:border-green-500 rounded-md "
+                      type={passwordVisible ? "text" : "password"}
                       name="password"
                       id="password"
                       placeholder="Password"
                       required
                     />
+                    <span
+                      onClick={togglePasswordVisibility}
+                      className="absolute right-3 bottom-3 cursor-pointer text-slate-400 "
+                    >
+                      {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                   </div>
 
                   <button className="px-8 w-full py-2 bg-[#059473] shadow-lg hover:shadow-green-500/40 text-white rounded-md">
@@ -159,7 +169,6 @@ function Register() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
