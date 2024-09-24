@@ -3,7 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaNairaSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { delete_cart_product, get_cart_products, messageClear } from "../store/reducers/cartReducer";
+import { delete_cart_product, get_cart_products, messageClear, quantity_dec, quantity_inc } from "../store/reducers/cartReducer";
 import toast from "react-hot-toast";
 
 function Cart() {
@@ -45,6 +45,22 @@ function Cart() {
       dispatch(get_cart_products(userInfo.id));
     }
   }, [dispatch, successMessage, userInfo.id]);
+
+  const inc = (quantity, stock, cart_id) => {
+    const temp = quantity + 1;
+    if (temp <= stock) {
+      dispatch(quantity_inc(cart_id));
+    }
+  };
+  const dec = (quantity, stock, cart_id) => {
+    const temp = quantity - 1;
+    if (temp !== 0) {
+      dispatch(quantity_dec(cart_id));
+    }
+  };
+
+
+
 
   return (
     <div>
@@ -134,9 +150,31 @@ function Cart() {
 
                               <div className="flex gap-2 flex-col">
                                 <div className="flex bg-slate-200 dark:bg-slate-600 h-[30px] justify-center items-center text-xl divide-x-2 dark:text-white divide-slate-600 dark:divide-slate-200">
-                                  <div className="px-3 cursor-pointer">-</div>
+                                  <div
+                                    onClick={() =>
+                                      dec(
+                                        pt.quantity,
+                                        pt.productInfo.stock,
+                                        pt._id
+                                      )
+                                    }
+                                    className="px-3 cursor-pointer"
+                                  >
+                                    -
+                                  </div>
                                   <div className="px-3">{pt.quantity}</div>
-                                  <div className="px-3 cursor-pointer ">+</div>
+                                  <div
+                                    onClick={() =>
+                                      inc(
+                                        pt.quantity,
+                                        pt.productInfo.stock,
+                                        pt._id
+                                      )
+                                    }
+                                    className="px-3 cursor-pointer "
+                                  >
+                                    +
+                                  </div>
                                 </div>
                                 <button
                                   onClick={() =>

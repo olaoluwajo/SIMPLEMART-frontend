@@ -55,6 +55,19 @@ export const quantity_inc = createAsyncThunk(
   async (cart_id, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.put(`/home/product/quantity-inc/${cart_id}`);
+      // console.log(data)
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+// END METHODS ---------------------------------------------------------------
+export const quantity_dec = createAsyncThunk(
+  "cart/quantity_dec",
+  async (cart_id, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.put(`/home/product/quantity-dec/${cart_id}`);
       console.log(data)
       return fulfillWithValue(data);
     } catch (error) {
@@ -62,6 +75,7 @@ export const quantity_inc = createAsyncThunk(
     }
   }
 );
+// END METHODS ---------------------------------------------------------------
 
 export const cartReducer = createSlice({
   name: "cart",
@@ -102,6 +116,12 @@ export const cartReducer = createSlice({
         state.buy_product_item = payload.buy_product_item;
       })
       .addCase(delete_cart_product.fulfilled, (state, { payload }) => {
+        state.successMessage = payload.message;
+      })
+      .addCase(quantity_inc.fulfilled, (state, { payload }) => {
+        state.successMessage = payload.message;
+      })
+      .addCase(quantity_dec.fulfilled, (state, { payload }) => {
         state.successMessage = payload.message;
       });
   },
