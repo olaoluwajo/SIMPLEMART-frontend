@@ -34,9 +34,9 @@ function Login() {
     dispatch(customer_login(state));
   };
 
-  useEffect(() => {
-    console.log("userInfo updated:", userInfo);
-  }, [userInfo]);
+  // useEffect(() => {
+  //   console.log("userInfo updated:", userInfo);
+  // }, [userInfo]);
 
   useEffect(() => {
     const handleMessages = () => {

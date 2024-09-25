@@ -52,7 +52,7 @@ function Cart() {
       dispatch(quantity_inc(cart_id));
     }
   };
-  const dec = (quantity, stock, cart_id) => {
+  const dec = (quantity, cart_id) => {
     const temp = quantity - 1;
     if (temp !== 0) {
       dispatch(quantity_dec(cart_id));
@@ -151,13 +151,7 @@ function Cart() {
                               <div className="flex gap-2 flex-col">
                                 <div className="flex bg-slate-200 dark:bg-slate-600 h-[30px] justify-center items-center text-xl divide-x-2 dark:text-white divide-slate-600 dark:divide-slate-200">
                                   <div
-                                    onClick={() =>
-                                      dec(
-                                        pt.quantity,
-                                        pt.productInfo.stock,
-                                        pt._id
-                                      )
-                                    }
+                                    onClick={() => dec(pt.quantity, pt._id)}
                                     className="px-3 cursor-pointer"
                                   >
                                     -
@@ -249,8 +243,13 @@ function Cart() {
                                 </div>
 
                                 <div className="flex gap-2 flex-col">
-                                  <div className="flex bg-slate-200 dark:bg-slate-600 h-[30px] justify-center items-center text-xl divide-x-2 dark:text-white divide-slate-600 dark:divide-slate-200 blur-sm">
-                                    <div className="px-3 cursor-pointer">-</div>
+                                  <div className="flex bg-slate-200 dark:bg-slate-600 h-[30px] justify-center items-center text-xl divide-x-2 dark:text-white divide-slate-600 dark:divide-slate-200 ">
+                                    <div
+                                      onClick={() => dec(p.quantity, p._id)}
+                                      className="px-3 cursor-pointer"
+                                    >
+                                      -
+                                    </div>
                                     <div className="px-3">{p.quantity}</div>
                                     <div className="px-3 cursor-pointer ">
                                       +
