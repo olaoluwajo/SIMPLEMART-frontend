@@ -17,6 +17,7 @@ import Payment from "./pages/Payment";
 import ProtectUser from "./utils/ProtectUser";
 import Dashboard from "./pages/Dashboard";
 import Index from "./components/dashboard";
+import Orders from "./components/dashboard/Orders";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
               {
                 path: "",
                 element: <Index />,
+              },
+              {
+                path: "my-orders",
+                element: <Orders />,
               },
             ],
           },
