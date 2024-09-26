@@ -28,7 +28,7 @@ function Dashboard() {
             <div
               className={`rounded-md z-50 md-lg:absolute transition-all  ${
                 filterShow ? "-left-4" : "-left-[360px]"
-              } w-[270px] ml-4 bg-white dark:bg-[#232D3F] `}
+              } w-[270px] ml-4 bg-white dark:bg-[#232D3F] md-lg:border`}
             >
               <ul className="py-2 text-slate-600 dark:text-slate-100 px-4">
                 <li className="flex justify-start items-center gap-2 py-2  hover:pl-2  transition-all duration-200">

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Stripe from "../components/Stripe";

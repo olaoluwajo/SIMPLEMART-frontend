@@ -16,6 +16,7 @@ import AppLayout from "./components/layouts/AppLayout";
 import Payment from "./pages/Payment";
 import ProtectUser from "./utils/ProtectUser";
 import Dashboard from "./pages/Dashboard";
+import Index from "./components/dashboard";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,12 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Dashboard />,
+            children: [
+              {
+                path: "",
+                element: <Index />,
+              },
+            ],
           },
         ],
       },
