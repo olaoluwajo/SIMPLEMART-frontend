@@ -28,7 +28,7 @@ const Login = lazy(() => import("./pages/Login"));
 const CategoryShop = lazy(() => import("./pages/CategoryShop"));
 const SearchProducts = lazy(() => import("./pages/SearchProducts"));
 const Payment = lazy(() => import("./pages/Payment"));
-const Index = lazy(() => import("./components/dashboard"));
+const Index = lazy(() => import("./components/dashboard/Index"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Orders = lazy(() => import("./components/dashboard/Orders"));
 
