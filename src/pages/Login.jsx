@@ -76,8 +76,8 @@ function Login() {
         </div>
       )}
       <div className="bg-gradient-to-r from-[#caddff] via-slate-200 dark:bg-gradient-to-r dark:from-slate-900 dark:via-slate-500">
-        <div className="w-full justify-center items-center p-10">
-          <div className="grid grid-cols-2 md-lg:grid-cols-1 md-lg:w-[95%] w-[60%] mx-auto dark:bg-[#232D3F]  bg-white rounded-md">
+        <div className="w-full justify-center items-center p-8">
+          <div className="grid grid-cols-2 md-lg:grid-cols-1 md-lg:w-full w-[60%] mx-auto dark:bg-[#232D3F]  bg-white rounded-md">
             <div className="w-full h-full py-4 pl-4 md-lg:hidden ">
               <img src="/images/login.jpg" alt="" className="w-full h-full" />
             </div>
@@ -141,14 +141,14 @@ function Login() {
                   <span>
                     <FaFacebookF />{" "}
                   </span>
-                  <span>Login With Facebook </span>
+                  <span className="text-sm">Login With Facebook </span>
                 </button>
 
                 <button className="px-8 w-full py-2 bg-red-500 shadow hover:shadow-red-500/50 text-white rounded-md flex justify-center items-center gap-2 mb-3">
                   <span>
                     <FaGoogle />
                   </span>
-                  <span>Login With Google </span>
+                  <span className="text-sm">Login With Google </span>
                 </button>
               </div>
 

@@ -22,6 +22,13 @@ export const place_order = createAsyncThunk(
         userId,
         navigate,
       });
+      navigate("/payment", {
+        state: {
+          price: price + shipping_fee,
+          items,
+          orderId: data.orderId,
+        },
+      });
       console.log(data);
     } catch (error) {
       console.error(error.response);

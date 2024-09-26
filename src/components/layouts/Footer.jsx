@@ -1,4 +1,4 @@
-import Logo from "../Logo";
+import Logo from "../../Logo";
 import { Link } from "react-router-dom";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";

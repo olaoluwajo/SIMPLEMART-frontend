@@ -65,8 +65,8 @@ function Register() {
         </div>
       )}
       <div className="bg-gradient-to-l from-[#caddff] via-slate-200 dark:bg-gradient-to-l dark:from-slate-900 dark:via-slate-500">
-        <div className="items-center justify-center w-full p-10">
-          <div className="grid grid-cols-2 md-lg:grid-cols-1 w-[60%] md-lg:w-[95%] mx-auto bg-white dark:bg-[#232D3F]  rounded-md">
+        <div className="items-center justify-center w-full p-8">
+          <div className="grid grid-cols-2 md-lg:grid-cols-1 w-[60%] md-lg:w-full mx-auto bg-white dark:bg-[#232D3F]  rounded-md">
             <div className="px-8 py-8">
               <h2 className="w-full text-xl font-bold text-center text-slate-600 dark:text-white">
                 Register{" "}
@@ -142,20 +142,20 @@ function Register() {
                   <span>
                     <FaFacebookF />{" "}
                   </span>
-                  <span>Login With Facebook </span>
+                  <span className="text-sm">Login With Facebook </span>
                 </button>
 
                 <button className="flex items-center justify-center w-full gap-2 px-8 py-2 mb-3 text-white bg-red-500 rounded-md shadow hover:shadow-red-500/50">
                   <span>
                     <FaGoogle />
                   </span>
-                  <span>Login With Google </span>
+                  <span className="text-sm">Login With Google </span>
                 </button>
               </div>
 
               <div className="pt-1 text-center text-slate-600 dark:text-white">
                 <p>
-                  You Have No Account?
+                  You Have No Account? 
                   <Link className="text-blue-500" to="/login">
                     Login
                   </Link>

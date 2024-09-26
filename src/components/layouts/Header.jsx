@@ -16,12 +16,12 @@ import {
   FaPhoneAlt,
 } from "react-icons/fa";
 import { useContext, useState } from "react";
-import { DarkModeContext } from "../context/DackModeContext";
+import { DarkModeContext } from "../../context/DackModeContext";
 import { FaSquareXTwitter, FaHeart, FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Logo from "./../Logo";
+import Logo from "../../Logo";
 import { useDispatch, useSelector } from "react-redux";
-import IconButton from "./IconButton";
+import IconButton from "../IconButton";
 
 function Header() {
   const { dark, darkModeHandler } = useContext(DarkModeContext);
