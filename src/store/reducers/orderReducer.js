@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
 
 export const place_order = createAsyncThunk(
-  "cart/place_order",
+  "order/place_order",
   async ({
     price,
     products,
@@ -36,6 +36,21 @@ export const place_order = createAsyncThunk(
   }
 );
 // End Method_____________________________________
+export const get_orders = createAsyncThunk(
+  "order/get_orders",
+  async ({ customerId, status }, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.get(
+        `/home/coustomer/get-orders/${customerId}/${status}`
+      );
+      console.log(data);
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+// End Method
 
 export const orderReducer = createSlice({
   name: "order",
@@ -46,12 +61,17 @@ export const orderReducer = createSlice({
     myOrder: {},
   },
   reducers: {
+    // eslint-disable-next-line no-unused-vars
     messageClear: (state, _) => {
       state.errorMessage = "";
       state.successMessage = "";
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(get_orders.fulfilled, (state, { payload }) => {
+      state.myOrders = payload.orders;
+    });
+  },
 });
 export const { messageClear } = orderReducer.actions;
 export default orderReducer.reducer;

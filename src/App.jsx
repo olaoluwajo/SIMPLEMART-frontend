@@ -4,20 +4,12 @@ import { lazy, useEffect } from "react";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import Home from "./pages/Home";
-// import Shops from "./pages/Shops";
-// import Cart from "./pages/Cart";
-// import Delivery from "./pages/Delivery";
-// import Details from "./pages/Details";
-// import Register from "./pages/Register";
-// import Login from "./pages/Login";
-// import CategoryShop from "./pages/CategoryShop";
-// import Payment from "./pages/Payment";
-// import SearchProducts from "./pages/SearchProducts";
-
 
 import AppLayout from "./components/layouts/AppLayout";
 import ProtectUser from "./utils/ProtectUser";
+import ChangePassword from "./components/dashboard/ChangePassword";
+import Wishlist from "./components/dashboard/Wishlist";
+import PageNotFound from "./pages/PageNotFound";
 const Home = lazy(() => import("./pages/Home"));
 const Shops = lazy(() => import("./pages/Shops"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -92,13 +84,21 @@ const router = createBrowserRouter([
                 path: "my-orders",
                 element: <Orders />,
               },
+              {
+                path: "change-password",
+                element: <ChangePassword />,
+              },
+              {
+                path: "my-wishlist",
+                element: <Wishlist />,
+              },
             ],
           },
         ],
       },
       {
         path: "*",
-        element: <h1>Page not found</h1>,
+        element: <PageNotFound/>,
       },
     ],
   },

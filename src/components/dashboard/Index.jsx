@@ -1,7 +1,36 @@
+import { FaNairaSign } from "react-icons/fa6";
 import { RiShoppingCart2Fill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { get_dashboard_index_data } from "../../store/reducers/dashboardReducer";
+import { useEffect } from "react";
 
 function Index() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { recentOrders, totalOrder, pendingOrder, cancelledOrder } =
+    useSelector((state) => state.dashboard);
+  const { userInfo } = useSelector((state) => state.auth);
+  // console.log(userInfo);
+  useEffect(() => {
+    dispatch(get_dashboard_index_data(userInfo.id));
+  }, [dispatch, userInfo.id]);
+
+  const redirect = (ord) => {
+    let items = 0;
+    for (let i = 0; i < ord.length; i++) {
+      items = ord.products[i].quantity + items;
+    }
+    console.log(ord);
+    navigate("", {
+      state: {
+        price: ord.price,
+        items,
+        orderId: ord._id,
+      },
+    });
+  };
+
   return (
     <div>
       <div className="grid grid-cols-3 md:grid-cols-1 gap-5">
@@ -12,7 +41,7 @@ function Index() {
             </span>
           </div>
           <div className="flex flex-col justify-start items-start text-slate-600 dark:text-slate-100">
-            <h2 className="text-3xl font-bold md-lg:text-xl">45</h2>
+            <h2 className="text-3xl font-bold md-lg:text-xl">{totalOrder}</h2>
             <span>Orders </span>
           </div>
         </div>
@@ -23,7 +52,9 @@ function Index() {
             </span>
           </div>
           <div className="flex flex-col justify-start items-start text-slate-600 dark:text-slate-100 ">
-            <h2 className="text-3xl md-lg:text-xl font-bold ">25</h2>
+            <h2 className="text-3xl md-lg:text-xl font-bold ">
+              {pendingOrder}
+            </h2>
             <span>Pending Orders </span>
           </div>
         </div>
@@ -34,7 +65,9 @@ function Index() {
             </span>
           </div>
           <div className="flex flex-col justify-start items-start text-slate-600 dark:text-slate-100 ">
-            <h2 className="text-3xl font-bold md-lg:text-xl">2</h2>
+            <h2 className="text-3xl font-bold md-lg:text-xl">
+              {cancelledOrder}
+            </h2>
             <span>Cancelled Orders </span>
           </div>
         </div>
@@ -64,88 +97,57 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-white  dark:bg-[#232D3F] dark:text-slate-100 border-b">
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
+                {recentOrders.map((o, i) => (
+                  <tr
+                    key={i}
+                    className="bg-white  dark:bg-[#232D3F] dark:text-slate-100 border-b"
                   >
-                    #344
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    $233
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    pending
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    pending
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    <Link>
-                      <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800  text-md font-bold mr-2 px-3 py-[2px] rounded">
-                        View
-                      </span>
-                    </Link>
-                    <Link>
-                      <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-bold mr-2 px-3 py-[2px] rounded">
-                        Pay Now
-                      </span>
-                    </Link>
-                  </td>
-                </tr>
-                <tr className="bg-white  dark:bg-[#232D3F] dark:text-slate-100 border-b">
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    #344
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    $233
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    pending
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    pending
-                  </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap"
-                  >
-                    <Link>
-                      <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800  text-md font-bold mr-2 px-3 py-[2px] rounded">
-                        View
-                      </span>
-                    </Link>
-                    <Link>
-                      <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-bold mr-2 px-3 py-[2px] rounded">
-                        Pay Now
-                      </span>
-                    </Link>
-                  </td>
-                </tr>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-nowrap"
+                    >
+                      #{o._id.slice(0, 10)}
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-nowrap
+               flex justify-start items-center "
+                    >
+                      <FaNairaSign />
+                      <span>{o.price} </span>
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-nowrap "
+                    >
+                      {o.payment_status}
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-nowrap"
+                    >
+                      {o.delivery_status}
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-nowrap"
+                    >
+                      <Link to={`/dashboard/order/details/${o._id}`}>
+                        <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800  text-md font-bold mr-2 px-3 py-[2px] rounded">
+                          View
+                        </span>
+                      </Link>
+                      {o.payment_status !== "paid" && (
+                        <span
+                          onClick={() => redirect(o)}
+                          className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-bold mr-2 px-3 py-[2px] rounded cursor-pointer"
+                        >
+                          Pay Now
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

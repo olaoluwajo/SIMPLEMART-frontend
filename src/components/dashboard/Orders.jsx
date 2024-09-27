@@ -1,8 +1,35 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { FaNairaSign } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { get_orders } from "../../store/reducers/orderReducer";
 
 function Orders() {
   const [state, setState] = useState("all");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { orderId } = useParams();
+  const { userInfo } = useSelector((state) => state.auth);
+  const { myOrders } = useSelector((state) => state.order);
+
+  useEffect(() => {
+    dispatch(get_orders({ status: state, customerId: userInfo.id }));
+  }, [dispatch, orderId, state, userInfo.id]);
+
+  const redirect = (ord) => {
+    let items = 0;
+    for (let i = 0; i < ord.length; i++) {
+      items = ord.products[i].quantity + items;
+    }
+    navigate("/payment", {
+      state: {
+        price: ord.price,
+        items,
+        orderId: ord._id,
+      },
+    });
+  };
+
   return (
     <div className="bg-white dark:bg-[#232D3F] p-4 rounded-md">
       <div className="flex justify-between items-center">
@@ -44,89 +71,58 @@ function Orders() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white dark:bg-[#232D3F] dark:text-slate-100  border-b">
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
+              {myOrders.map((o, i) => (
+                <tr
+                  key={i}
+                  className="bg-white dark:bg-[#232D3F] dark:text-slate-100  border-b"
                 >
-                  #344
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  $233
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  pending
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  pending
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  <Link>
-                    <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded">
-                      View
-                    </span>
-                  </Link>
-                  <Link>
-                    <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded">
-                      Pay Now
-                    </span>
-                  </Link>
-                </td>
-              </tr>
-              <tr className="bg-white dark:bg-[#232D3F] dark:text-slate-100  border-b">
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  #344
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  $233
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  pending
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  pending
-                </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
-                >
-                  <Link>
-                    <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded">
-                      View
-                    </span>
-                  </Link>
-                  <Link>
-                    <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded">
-                      Pay Now
-                    </span>
-                  </Link>
-                </td>
-              </tr>
+                  <td
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    #{o._id}
+                  </td>
 
+                  <td
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap
+               flex justify-start items-center "
+                  >
+                    <FaNairaSign />
+                    <span>{o.price} </span>
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    {o.payment_status}
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    {o.delivery_status}
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    <Link to={`/dashboard/order/details/${o._id}`}>
+                      <span className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded">
+                        View
+                      </span>
+                    </Link>
+                    {o.payment_status !== "paid" && (
+                      <span
+                        onClick={() => redirect(o)}
+                        className="bg-green-200 text-green-800 dark:text-green-200 dark:bg-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded cursor-pointer"
+                      >
+                        Pay Now
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
