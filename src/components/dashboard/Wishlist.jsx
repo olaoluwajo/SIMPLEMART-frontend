@@ -18,7 +18,7 @@ function Wishlist() {
             </div>
 
             <img
-              className="sm:w-full w-full h-[240px]"
+              className="sm:w-full w-full h-[240px] md-lg:object-contain"
               src="/images/products/1.webp"
               alt=""
             />

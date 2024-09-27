@@ -10,6 +10,7 @@ import ProtectUser from "./utils/ProtectUser";
 import ChangePassword from "./components/dashboard/ChangePassword";
 import Wishlist from "./components/dashboard/Wishlist";
 import PageNotFound from "./pages/PageNotFound";
+import OrderDetails from "./components/dashboard/OrderDetails";
 const Home = lazy(() => import("./pages/Home"));
 const Shops = lazy(() => import("./pages/Shops"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -92,13 +93,17 @@ const router = createBrowserRouter([
                 path: "my-wishlist",
                 element: <Wishlist />,
               },
+              {
+                path: "order/details/:orderId",
+                element: <OrderDetails />,
+              },
             ],
           },
         ],
       },
       {
         path: "*",
-        element: <PageNotFound/>,
+        element: <PageNotFound />,
       },
     ],
   },

@@ -10,7 +10,7 @@ export const get_dashboard_index_data = createAsyncThunk(
       const { data } = await api.get(
         `/home/coustomer/get-dashboard-data/${userId}`
       );
-      console.log(data);
+      // console.log(data);
       return fulfillWithValue(data)
     } catch (error) {
       return rejectWithValue(error.response.data);

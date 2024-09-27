@@ -21,8 +21,8 @@ function Index() {
     for (let i = 0; i < ord.length; i++) {
       items = ord.products[i].quantity + items;
     }
-    console.log(ord);
-    navigate("", {
+    // console.log(ord);
+    navigate("/payment", {
       state: {
         price: ord.price,
         items,

@@ -8,13 +8,13 @@ function Orders() {
   const [state, setState] = useState("all");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { orderId } = useParams();
+  // const { orderId } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
   const { myOrders } = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(get_orders({ status: state, customerId: userInfo.id }));
-  }, [dispatch, orderId, state, userInfo.id]);
+  }, [dispatch, state, userInfo.id]);
 
   const redirect = (ord) => {
     let items = 0;
@@ -80,7 +80,7 @@ function Orders() {
                     scope="row"
                     className="px-6 py-4 font-medium whitespace-nowrap"
                   >
-                    #{o._id}
+                    #{o._id.slice(0, 10)}
                   </td>
 
                   <td

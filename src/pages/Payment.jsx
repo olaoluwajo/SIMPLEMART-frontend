@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Stripe from "../components/Stripe";
 import { FaNairaSign } from "react-icons/fa6";
+import Paystack from "../components/Paystack";
 // import Stripe from "stripe";
 
 function Payment() {
@@ -21,14 +22,18 @@ function Payment() {
                 <div className="flex flex-wrap">
                   <div
                     onClick={() => setPaymentMethod("stripe")}
-                    className={`w-[20%] border-r dark:border-[#232D3F] dark:shadow-sm dark:shadow-[#232D3F] cursor-pointer py-8 px-12 ${
+                    className={`w-[20%] border-r dark:border-[#232D3F] dark:shadow-sm dark:shadow-[#232D3F] cursor-pointer py-8 px-12 md-lg:w-[33%]  md-lg:px-4 ${
                       paymentMethod === "stripe"
                         ? "bg-white  dark:bg-[#232D3F]  "
                         : "bg-slate-100 dark:bg-[#040D12]"
                     } `}
                   >
                     <div className="flex flex-col gap-[3px] justify-center items-center">
-                      <img src="/images/payment/stripe.png" alt="" />
+                      <img
+                        src="/images/payment/stripe.png"
+                        alt=""
+                        className="md-lg:w-1/2"
+                      />
                     </div>
                     <span className="text-slate-600 dark:text-white">
                       Stripe
@@ -36,15 +41,38 @@ function Payment() {
                   </div>
 
                   <div
+                    onClick={() => setPaymentMethod("paystack")}
+                    className={`w-[20%] md-lg:w-[33%] border-r dark:border-[#232D3F] dark:shadow-sm dark:shadow-[#232D3F]    cursor-pointer py-8 px-8  md-lg:px-4 ${
+                      paymentMethod === "paystack"
+                        ? "bg-white  dark:bg-[#232D3F]  "
+                        : "bg-slate-100 dark:bg-[#040D12]"
+                    } `}
+                  >
+                    <div className="flex flex-col gap-[3px] justify-center items-center">
+                      <img
+                        src="images/payment/paystack.png"
+                        alt=""
+                        className=" w-full md-lg:w-1/2"
+                      />
+                    </div>
+                    <span className="text-slate-600 dark:text-white">
+                      PAYSTACK
+                    </span>
+                  </div>
+                  <div
                     onClick={() => setPaymentMethod("pod")}
-                    className={`w-[20%] border-r dark:border-[#232D3F] dark:shadow-sm dark:shadow-[#232D3F]    cursor-pointer py-8 px-12 ${
+                    className={`w-[20%] md-lg:w-[33%] border-r dark:border-[#232D3F] dark:shadow-sm dark:shadow-[#232D3F]    cursor-pointer py-8 px-12  md-lg:px-4 ${
                       paymentMethod === "pod"
                         ? "bg-white  dark:bg-[#232D3F]  "
                         : "bg-slate-100 dark:bg-[#040D12]"
                     } `}
                   >
                     <div className="flex flex-col gap-[3px] justify-center items-center">
-                      <img src="images/payment/cod.jpg" alt="" />
+                      <img
+                        src="images/payment/cod.jpg"
+                        alt=""
+                        className="md-lg:w-1/2"
+                      />
                     </div>
                     <span className="text-slate-600 dark:text-white">POD</span>
                   </div>
@@ -52,6 +80,11 @@ function Payment() {
                 {paymentMethod === "stripe" && (
                   <div>
                     <Stripe />
+                  </div>
+                )}
+                {paymentMethod === "paystack" && (
+                  <div>
+                    <Paystack />
                   </div>
                 )}
                 {paymentMethod === "pod" && (
@@ -64,7 +97,7 @@ function Payment() {
               </div>
             </div>
 
-            <div className="w-5/12 md:w-full">
+            <div className="w-5/12 md:w-full ">
               <div className="pl-2 md:pl-0 md:mb-0">
                 <div className="bg-white shadow p-5 text-slate-600 flex flex-col gap-3">
                   <h2 className="font-bold text-lg">Order Summary </h2>
