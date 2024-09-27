@@ -203,7 +203,7 @@ function Shops() {
                 />
                 <div>
                   <span className="text-lg font-bold dark:text-white text-slate-800">
-                    ${Math.floor(state.values[0])} - $
+                    N{Math.floor(state.values[0])} - N
                     {Math.floor(state.values[1])}
                   </span>
                 </div>
@@ -359,8 +359,8 @@ function Shops() {
 
             <div className="w-9/12 md-lg:w-8/12 md:w-full">
               <div className="pl-8 md:pl-0">
-                <div className="flex items-start justify-between px-3 py-4 mb-10 bg-white border rounded-md dark:bg-slate-800 dark:border-slate-700">
-                  <h2 className="text-lg font-medium text-slate-600 dark:text-slate-400">
+                <div className="flex items-start justify-between md-lg:items-center  px-3 py-4 mb-10 bg-white border rounded-md dark:bg-slate-800 dark:border-slate-700">
+                  <h2 className="text-lg font-medium text-slate-600 dark:text-slate-400 md-lg:text-sm">
                     {products.length} Products
                   </h2>
                   <div className="flex items-center justify-center gap-3">

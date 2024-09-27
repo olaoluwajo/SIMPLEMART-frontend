@@ -64,37 +64,37 @@ function FeatureProducts({ products }) {
                 ""
               )}
               <img
-                className="object-fill md-lg:h-[200px] w-full h-[300px] group-hover:scale-[1.1] duration-500 transition-all "
+                className="object-fill md-lg:h-[140px] w-full h-[300px] group-hover:scale-[1.1] duration-500 transition-all "
                 src={p.images[1]}
                 alt={`Product ${p.name}`}
               />
 
               <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">
-                <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+                <li className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
                   <FaRegHeart />
                 </li>
 
                 <Link
                   to="/product/details/new"
-                  className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                  className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
                 >
                   <FaEye />
                 </Link>
 
                 <li
                   onClick={() => add_cart(p._id)}
-                  className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                  className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
                 >
                   <RiShoppingCartLine />
                 </li>
               </ul>
             </div>
-            <div className="py-3 text-slate-600 dark:text-[#fff9e3]  px-2">
+            <div className="py-3 text-slate-600 dark:text-[#fff9e3] md-lg:text-sm    px-2">
               <h2 className="font-bold">{p.name} </h2>
               <div className="flex justify-start items-center gap-3">
-                <div className="flex justify-center items-center ">
+                <div className="flex justify-center items-center py-1">
                   <FaNairaSign />
-                  <span className="text-md font-semibold">{p.price}</span>
+                  <span className="text-xs font-semibold">{p.price}</span>
                 </div>
               </div>
               <div className="flex">

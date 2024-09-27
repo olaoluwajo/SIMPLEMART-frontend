@@ -34,8 +34,7 @@ function Products({ title, products }) {
     return (
       <div className="flex items-center justify-between">
         <div className="text-xl font-bold  dark:text-[#fff9e3]  text-slate-600">
-          {" "}
-          {title}{" "}
+          {title}
         </div>
         <div className="flex items-center justify-center gap-3 text-slate-600">
           <button
@@ -72,19 +71,19 @@ function Products({ title, products }) {
               {p.map((pl, j) => (
                 <Link
                   key={j}
-                  className="flex items-start justify-start border dark:border-slate-800 "
+                  className="flex items-center justify-start border dark:border-slate-800 "
                   to="#"
                 >
                   <img
-                    className="w-[110px] h-[110px]"
+                    className="w-[110px] h-[110px] md-lg:size-[70px]"
                     src={pl.images[0]}
                     alt=""
                   />
-                  <div className="px-8 py-4 flex justify-start items-start gap-1 flex-col  dark:text-[#fff9e3]  text-slate-600">
-                    <h2>{pl.name} </h2>
-                    <div className="flex items-center justify-center ">
+                  <div className="px-8 py-1 flex justify-start items-start gap-1 flex-col  dark:text-[#fff9e3]  text-slate-600">
+                    <h2 className="md-lg:text-sm">{pl.name} </h2>
+                    <div className="flex items-center justify-center text-lg font-bold md-lg:text-xs ">
                       <FaNairaSign />
-                      <span className="text-lg font-bold ">{pl.price}</span>
+                      <span className="">{pl.price}</span>
                     </div>
                   </div>
                 </Link>

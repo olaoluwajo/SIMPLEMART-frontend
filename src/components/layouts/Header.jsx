@@ -482,7 +482,7 @@ function Header() {
               <div
                 className={`${
                   categoryShow ? "h-0" : "h-[400px] md-lg:h-[300px]"
-                } overflow-hidden transition-all md-lg:relative duration-500 absolute z-[9999] bg-[#dbf3ed] dark:bg-[#232D3F]  w-full border-x `}
+                } overflow-auto transition-all md-lg:relative duration-500 absolute z-[999] bg-[#dbf3ed] dark:bg-[#232D3F]  w-full border-x `}
               >
                 {" "}
                 <ul className="py-2 font-medium text-slate-800 dark:text-slate-50 ">

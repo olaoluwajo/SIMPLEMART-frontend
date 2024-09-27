@@ -82,7 +82,7 @@ function Categories() {
             <div className="relative w-full h-full p-3 transition-all group hover:scale-110 ">
               <img src={c.image} alt="" className="w-full" />
               <div className="absolute left-0 right-0 flex items-center justify-center mx-auto font-bold bottom-6">
-                <span className="py-2 px-6 bg-[#040d126b] rounded-md text-white group-hover:bg-[#040D12] ">
+                <span className="py-2 px-6 bg-[#040d126b] rounded-md text-white text-center md-lg:text-sm group-hover:bg-[#040D12] ">
                   {c.name}
                 </span>
               </div>

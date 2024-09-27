@@ -4,6 +4,7 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import Rating from "../Rating";
 import { FaNairaSign } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function ShopProducts({ styles }) {
   const { products } = useSelector((state) => state.home);
@@ -33,28 +34,36 @@ function ShopProducts({ styles }) {
             }
           >
             <img
-              className="h-[240px] rounded-md md:h-[270px] xs:h-[170px] w-full object-cover"
+              className="h-[240px]   rounded-md md:h-[270px] xs:h-[170px] w-full object-cover"
               src={p.images[0]}
               alt={p.name}
             />
 
-            <ul className="absolute flex items-center justify-center w-full gap-2 transition-all duration-700 -bottom-10 group-hover:bottom-3">
-              <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+            <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">
+              <li className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
                 <FaRegHeart />
               </li>
-              <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+
+              <Link
+                to="/product/details/new"
+                className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+              >
                 <FaEye />
-              </li>
-              <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+              </Link>
+
+              <li
+                onClick={() => add_cart(p._id)}
+                className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+              >
                 <RiShoppingCartLine />
               </li>
             </ul>
           </div>
 
-          <div className="flex flex-col items-start justify-start gap-1 p-4 dark:text-white">
-            <h2 className="font-bold"> {p.name} </h2>
+          <div className="flex flex-col items-start justify-start gap-1 p-4 md-lg:pt-1 dark:text-white">
+            <h2 className="font-bold md-lg:text-md"> {p.name} </h2>
             <div className="flex items-center justify-start gap-3">
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center md-lg:text-xs">
                 <FaNairaSign />
                 <span className="font-semibold text-md"> {p.price}</span>
               </div>
