@@ -41,7 +41,7 @@ function OrderDetails() {
 
         <div className="text-slate-600 dark:text-slate-100 ml-4  ">
           <h2 className="font-mono">
-            Price : ${myOrder.price} Include Shipping
+            Price : N{myOrder.price} Include Shipping
           </h2>
           <p className="font-mono">
             Payment Status :{" "}
