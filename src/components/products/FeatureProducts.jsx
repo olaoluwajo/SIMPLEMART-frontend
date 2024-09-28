@@ -14,6 +14,7 @@ function FeatureProducts({ products }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const { errorMessage, successMessage } = useSelector((state) => state.cart);
+  const maxLength = 40;
 
   const add_cart = (id) => {
     if (userInfo) {
@@ -70,31 +71,41 @@ function FeatureProducts({ products }) {
               />
 
               <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">
-                <li className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+                <li className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all border border-black">
                   <FaRegHeart />
                 </li>
 
                 <Link
                   to="/product/details/new"
-                  className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                  className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all  border border-black"
                 >
                   <FaEye />
                 </Link>
 
                 <li
                   onClick={() => add_cart(p._id)}
-                  className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                  className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all  border border-black"
                 >
                   <RiShoppingCartLine />
                 </li>
               </ul>
             </div>
             <div className="py-3 text-slate-600 dark:text-[#fff9e3] md-lg:text-sm    px-2">
-              <h2 className="font-bold">{p.name} </h2>
+              {/* <h2 className="font-bold">{p.name} </h2> */}
+              <h2 className="font-bold">
+                {p.name.length > maxLength ? (
+                  <>
+                    {p.name.substring(0, maxLength)}
+                    ...
+                  </>
+                ) : (
+                  p.name
+                )}
+              </h2>
               <div className="flex justify-start items-center gap-3">
                 <div className="flex justify-center items-center py-1">
                   <FaNairaSign />
-                  <span className="text-xs font-semibold">{p.price}</span>
+                  <span className="md-lg:text-xs font-semibold">{p.price}</span>
                 </div>
               </div>
               <div className="flex">

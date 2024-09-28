@@ -57,6 +57,9 @@ function Header() {
       navigate("/login");
     }
   };
+    const redirect = () => {
+      navigate("*");
+    };
 
   return (
     <div className="w-full  border-b-2 dark:border-slate-600 border-slate-200  bg-[#fefefa] dark:bg-[#040D12]">
@@ -134,7 +137,7 @@ function Header() {
         </div>
       </div>
 
-      <div className="w-white">
+      <div className="w-white ">
         <div className="w-[85%] lg:w-[90%] mx-auto">
           <div className="flex flex-wrap items-center justify-between py-5 md-lg:py-4">
             <div className="w-3/12 md-lg:w-full md-lg:pt-4">
@@ -189,7 +192,7 @@ function Header() {
                       Shops
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={redirect}>
                     <Link
                       className={`p-2 block ${
                         pathname === "/blog"
@@ -200,8 +203,9 @@ function Header() {
                       Blog
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={redirect}>
                     <Link
+                      to="*"
                       className={`p-2 block ${
                         pathname === "/about"
                           ? "text-[#059473]"
@@ -211,7 +215,7 @@ function Header() {
                       About Us
                     </Link>
                   </li>
-                  <li>
+                  <li onClick={redirect}>
                     <Link
                       className={`p-2 block ${
                         pathname === "/contact"
@@ -383,7 +387,7 @@ function Header() {
                   Shops
                 </Link>
               </li>
-              <li>
+              <li onClick={redirect}>
                 <Link
                   className={`py-2 block ${
                     pathname === "/blog"
@@ -394,7 +398,7 @@ function Header() {
                   Blog
                 </Link>
               </li>
-              <li>
+              <li onClick={redirect}>
                 <Link
                   className={`py-2 block ${
                     pathname === "/about"
@@ -405,7 +409,7 @@ function Header() {
                   About Us
                 </Link>
               </li>
-              <li>
+              <li onClick={redirect}>
                 <Link
                   className={`py-2 block ${
                     pathname === "/contact"

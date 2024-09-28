@@ -10,6 +10,7 @@ function Products({ title, products }) {
   //   [1, 2, 3],
   //   [4, 5, 6],
   // ];
+    const maxLength = 35;
 
   const responsive = {
     superLargeDesktop: {
@@ -79,8 +80,17 @@ function Products({ title, products }) {
                     src={pl.images[0]}
                     alt=""
                   />
-                  <div className="px-8 py-1 flex justify-start items-start gap-1 flex-col  dark:text-[#fff9e3]  text-slate-600">
-                    <h2 className="md-lg:text-sm">{pl.name} </h2>
+                  <div className="pl-8 py-1 flex justify-start items-start gap-1 flex-col  dark:text-[#fff9e3]  text-slate-600">
+                    <h2 className="md-lg:text-sm">
+                      {pl.name.length > maxLength ? (
+                        <>
+                          {pl.name.substring(0, maxLength)}
+                          ...
+                        </>
+                      ) : (
+                        pl.name
+                      )}
+                    </h2>
                     <div className="flex items-center justify-center text-lg font-bold md-lg:text-xs ">
                       <FaNairaSign />
                       <span className="">{pl.price}</span>

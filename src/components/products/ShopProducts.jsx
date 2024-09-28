@@ -3,11 +3,31 @@ import { FaEye, FaRegHeart } from "react-icons/fa";
 import { RiShoppingCartLine } from "react-icons/ri";
 import Rating from "../Rating";
 import { FaNairaSign } from "react-icons/fa6";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link,  useNavigate } from "react-router-dom";
+import { add_to_cart } from "../../store/reducers/cartReducer";
 
 function ShopProducts({ styles }) {
+const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
   const { products } = useSelector((state) => state.home);
+
+const maxLength = 40;
+  const add_cart = (id) => {
+    if (userInfo) {
+      dispatch(
+        add_to_cart({
+          userId: userInfo.id,
+          quantity: 1,
+          productId: id,
+        })
+      );
+    } else {
+      navigate("/login");
+    }
+  };
+
 
   return (
     <div
@@ -61,7 +81,17 @@ function ShopProducts({ styles }) {
           </div>
 
           <div className="flex flex-col items-start justify-start gap-1 p-4 md-lg:pt-1 dark:text-white">
-            <h2 className="font-bold md-lg:text-md"> {p.name} </h2>
+            <h2 className="font-bold md-lg:text-md">
+              {" "}
+              {p.name.length > maxLength ? (
+                <>
+                  {p.name.substring(0, maxLength)}
+                  ...
+                </>
+              ) : (
+                p.name
+              )}{" "}
+            </h2>
             <div className="flex items-center justify-start gap-3">
               <div className="flex items-center justify-center md-lg:text-xs">
                 <FaNairaSign />
