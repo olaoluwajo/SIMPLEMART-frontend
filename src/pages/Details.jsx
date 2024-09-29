@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Rating from "./../components/Rating";
 import {
   FaFacebookF,
@@ -22,14 +22,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useDispatch, useSelector } from "react-redux";
+import { product_details } from "../store/reducers/homeReducer";
+import toast from "react-hot-toast";
+import { add_to_cart, messageClear } from "../store/reducers/cartReducer";
 
 function Details() {
-  const images = [1, 2, 3, 4, 5, 6, 7, 8];
-  const [image, setImage] = useState("");
-  const discount = 10;
-  const stock = 3;
-  const [state, setState] = useState("reviews");
-
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -60,6 +58,63 @@ function Details() {
       items: 3,
     },
   };
+  const navigate = useNavigate();
+  const { slug } = useParams();
+  const dispatch = useDispatch();
+  const [image, setImage] = useState("");
+  // const discount = 10;
+  const stock = 3;
+  const [state, setState] = useState("reviews");
+  const [quantity, setQuantity] = useState(1);
+  const { userInfo } = useSelector((state) => state.auth);
+  const { errorMessage, successMessage } = useSelector((state) => state.cart);
+  const { product, relatedProducts, moreProducts } = useSelector(
+    (state) => state.home
+  );
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage);
+      dispatch(messageClear());
+    }
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(messageClear());
+    }
+  }, [successMessage, errorMessage, dispatch]);
+
+  useEffect(() => {
+    dispatch(product_details(slug));
+  }, [dispatch, slug]);
+
+  const maxLength = 230;
+
+  const inc = () => {
+    if (quantity >= product.stock) {
+      toast.error("Out of Stock");
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+  const dec = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const add_cart = () => {
+    if (userInfo) {
+      dispatch(
+        add_to_cart({
+          userId: userInfo.id,
+          quantity,
+          productId: product._id,
+        })
+      );
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="bg-[#eeeeee]  dark:bg-[#040D12]">
@@ -68,13 +123,6 @@ function Details() {
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex flex-col items-center justify-center w-full h-full gap-1 text-white">
               <h2 className="text-3xl font-bold">Product Details </h2>
-              {/* <div className="flex items-center justify-center w-full gap-2 text-2xl">
-                <Link to="/">Home</Link>
-                <span className="pt-1">
-                  <IoIosArrowForward />
-                </span>
-                <span>Product Details </span>
-              </div> */}
             </div>
           </div>
         </div>
@@ -88,45 +136,41 @@ function Details() {
               <span className="pt-1">
                 <IoIosArrowForward />
               </span>
-              <Link to="/">Category</Link>
+              <Link to="/">{product.category}</Link>
               <span className="pt-1">
                 <IoIosArrowForward />
               </span>
-              <span>Product Name </span>
+              <span>{product.name} </span>
             </div>
           </div>
         </div>
       </section>
 
       <section>
-        <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
+        <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto mb-4">
           <div className="grid grid-cols-2 gap-8 md-lg:grid-cols-1">
             <div>
               <div className="p-5 border dark:border-slate-700">
                 <img
                   className="h-[400px] object-contain w-full"
-                  src={
-                    image
-                      ? `/images/products/${image}.webp`
-                      : `/images/products/${images[2]}.webp`
-                  }
+                  src={image ? image : product.images?.[0]}
                   alt=""
                 />
               </div>
               <div className="py-3">
-                {images && (
+                {product.images && (
                   <Carousel
                     autoPlay={true}
                     infinite={true}
                     responsive={responsive}
                     transitionDuration={500}
                   >
-                    {images.map((imgClick, i) => {
+                    {product.images.map((imgClick, i) => {
                       return (
                         <div key={i} onClick={() => setImage(imgClick)}>
                           <img
                             className="h-[120px] cursor-pointer"
-                            src={`/images/products/${imgClick}.webp`}
+                            src={imgClick}
                             alt=""
                           />
                         </div>
@@ -139,7 +183,7 @@ function Details() {
 
             <div className="flex flex-col gap-5">
               <div className="text-3xl font-bold text-slate-600 dark:text-white">
-                <h3>Product Name </h3>
+                <h3>{product.name} </h3>
               </div>
               <div className="flex items-center justify-start gap-4">
                 <div className="flex text-xl">
@@ -149,17 +193,22 @@ function Details() {
               </div>
 
               <div className="flex gap-3 text-2xl font-bold text-red-500">
-                {discount !== 0 ? (
+                {product.discount !== 0 ? (
                   <>
                     Price :
                     <div className="flex items-center justify-center line-through ">
                       <FaNairaSign size={17} />
-                      <h2 className="">500</h2>
+                      <h2 className="">{product.price}</h2>
                     </div>
                     <div className="flex items-center justify-center text-green-400 ">
                       <FaNairaSign size={17} />
                       <h2>
-                        {500 - Math.floor((500 * discount) / 100)} (-{discount}
+                        {product.price -
+                          Math.floor(
+                            (product.price * product.discount) / 100
+                          )}{" "}
+                        (-
+                        {product.discount}
                         %){" "}
                       </h2>
                     </div>
@@ -167,41 +216,56 @@ function Details() {
                 ) : (
                   <div className="flex items-center justify-center text-green-400 ">
                     Price : <FaNairaSign size={17} />
-                    <h2 className="text-green-400"> 200 </h2>
+                    <h2 className="text-green-400"> {product.price} </h2>
                   </div>
                 )}
               </div>
 
               <div className="text-slate-600 dark:text-white">
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry&apos;s
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley
+                  {product.description.length > maxLength ? (
+                    <>
+                      {product.description.substring(0, maxLength)}
+                      ...
+                    </>
+                  ) : (
+                    product.description
+                  )}
+                  {/* {product.description.substring(0, 230)}
+                  {"..."} */}
                 </p>
               </div>
 
               <div className="flex gap-3 pb-10 border-b">
-                {stock ? (
+                {product.stock ? (
                   <>
                     <div className="flex bg-slate-200 h-[50px] justify-center items-center text-xl font-bold overflow-hidden">
-                      <div className="p-6 cursor-pointer active:bg-red-600 active:text-white">
+                      <div
+                        onClick={dec}
+                        className="p-6 cursor-pointer active:bg-red-600 active:text-white"
+                      >
                         -
                       </div>
-                      <div className="px-6">2</div>
-                      <div className="p-6 cursor-pointer active:bg-green-600 active:text-white">
+                      <div className="px-6">{quantity}</div>
+                      <div
+                        onClick={inc}
+                        className="p-6 cursor-pointer active:bg-green-600 active:text-white"
+                      >
                         +
                       </div>
                     </div>
                     <div>
-                      <button className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-green-700 text-white">
+                      <button
+                        onClick={add_cart}
+                        className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-green-700 text-white"
+                      >
                         Add To Cart
                       </button>
                     </div>
                   </>
                 ) : (
                   ""
-                )}{" "}
+                )}
                 <div>
                   <div className="h-[50px] w-[50px] flex justify-center items-center cursor-pointer hover:shadow-lg hover:shadow-cyan-500/40 bg-cyan-500 text-white">
                     <FaHeart />
@@ -215,8 +279,12 @@ function Details() {
                   <span>Share On</span>
                 </div>
                 <div className="flex flex-col gap-5 font-semibold">
-                  <span className={`text-${stock ? "green" : "red"}-500`}>
-                    {stock ? `In Stock(${stock})` : "Out Of Stock"}
+                  <span
+                    className={`text-${product.stock ? "green" : "red"}-500`}
+                  >
+                    {product.stock
+                      ? `In Stock(${product.stock})`
+                      : "Out Of Stock"}
                   </span>{" "}
                   <ul className="flex items-center justify-start gap-3">
                     <li>
@@ -224,8 +292,7 @@ function Details() {
                         className="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-indigo-500 rounded-full text-white"
                         href="#"
                       >
-                        {" "}
-                        <FaFacebookF />{" "}
+                        <FaFacebookF />
                       </a>
                     </li>
                     <li>
@@ -233,8 +300,7 @@ function Details() {
                         className="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-cyan-500 rounded-full text-white"
                         href="#"
                       >
-                        {" "}
-                        <FaTwitter />{" "}
+                        <FaTwitter />
                       </a>
                     </li>
                     <li>
@@ -312,18 +378,8 @@ function Details() {
                   {state === "reviews" ? (
                     <Reviews />
                   ) : (
-                    <p className="py-5 text-slate-600 dark:text-slate-100">
-                      What is Lorem Ipsum? Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry&apos;s standard dummy text ever since
-                      the 1500s, when an unknown printer took a galley of type
-                      and scrambled it to make a type specimen book. It has
-                      survived not only five centuries, but also the leap into
-                      electronic typesetting, remaining essentially unchanged.
-                      It was popularised in the 1960s with the release of
-                      Letraset sheets containing Lorem Ipsum passages, and more
-                      recently with desktop publishing software like Aldus
-                      PageMaker including versions of Lorem Ipsum.
+                    <p className="py-5 leading-8 text-slate-600 dark:text-slate-100">
+                      {product.description}
                     </p>
                   )}
                 </div>
@@ -337,7 +393,7 @@ function Details() {
                 </div>
 
                 <div className="flex flex-col gap-5 p-3 mt-3 border dark:border-slate-600">
-                  {[3, 4].map((p, i) => {
+                  {moreProducts.map((p, i) => {
                     return (
                       <Link
                         key={i}
@@ -346,25 +402,25 @@ function Details() {
                         <div className="relative h-[270px]">
                           <img
                             className="w-full h-full"
-                            src={`/images/products/${p}.webp`}
+                            src={p.images[0]}
                             alt=""
                           />
-                          {discount !== 0 && (
+                          {p.discount !== 0 && (
                             <div className="absolute flex justify-center items-center  text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2">
-                              {discount}%
+                              {p.discount}%
                             </div>
                           )}
                         </div>
                         <h2 className="py-1 font-bold text-slate-600 dark:text-slate-100">
-                          Product Name
+                          {p.name}
                         </h2>
                         <div className="flex gap-2">
                           <span className="flex items-center justify-center text-slate-600 dark:text-slate-100">
                             <FaNairaSign />
-                            <h2 className="text-lg font-bold">434</h2>
+                            <h2 className="text-lg font-bold">{p.price}</h2>
                           </span>
                           <div className="flex items-center gap-2">
-                            <Rating ratings={4.5} />
+                            <Rating ratings={p.rating} />
                           </div>
                         </div>
                       </Link>
@@ -404,37 +460,37 @@ function Details() {
               scrollbar={{ draggable: true }}
               className="mySwiper"
             >
-              {[1, 2, 3, 4, 5, 6].map((p, i) => {
+              {relatedProducts.map((p, i) => {
                 return (
                   <SwiperSlide key={i}>
                     <Link className="block">
                       <div className="relative h-[270px]">
                         <div className="w-full h-full">
                           <img
-                            src={`/images/products/${p}.webp`}
+                            src={p.images[0]}
                             alt=""
                             className="object-contain w-full h-full"
                           />
                           <div className="absolute h-full w-full top-0 left-0 bg-[#000] opacity-25 hover:opacity-50 transition-all duration-500"></div>
                         </div>
-                        {discount !== 0 && (
+                        {p.discount !== 0 && (
                           <div className="flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2">
-                            {discount}%
+                            {p.discount}%
                           </div>
                         )}
                       </div>
 
                       <div className="flex flex-col gap-1 p-4">
                         <h2 className="text-lg font-bold text-slate-600 dark:text-slate-100">
-                          Product Name{" "}
+                          {p.name}
                         </h2>
                         <div className="flex items-center justify-start gap-3">
                           <span className="flex items-center justify-center text-slate-600 dark:text-slate-100">
                             <FaNairaSign />
-                            <h2 className="text-lg font-bold">434</h2>
+                            <h2 className="text-lg font-bold"> {p.price}</h2>
                           </span>
                           <div className="flex">
-                            <Rating ratings={4.5} />
+                            <Rating ratings={p.rating} />
                           </div>
                         </div>
                       </div>

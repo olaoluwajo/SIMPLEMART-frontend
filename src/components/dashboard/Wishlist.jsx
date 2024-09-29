@@ -6,6 +6,7 @@ import { FaNairaSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  add_to_cart,
   get_wishlist_products,
   messageClear,
   remove_wishlist,
@@ -20,6 +21,18 @@ function Wishlist() {
   );
 
   const maxLength = 30;
+
+  const add_cart = (id) => {
+    if (userInfo) {
+      dispatch(
+        add_to_cart({
+          userId: userInfo.id,
+          quantity: 1,
+          productId: id,
+        })
+      );
+    }
+  };
 
   useEffect(() => {
     dispatch(get_wishlist_products(userInfo.id));
@@ -67,7 +80,10 @@ function Wishlist() {
                   >
                     <FaEye />
                   </Link>
-                  <li className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+                  <li
+                    onClick={() => add_cart(p._id)}
+                    className="w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                  >
                     <RiShoppingCartLine />
                   </li>
                 </ul>
