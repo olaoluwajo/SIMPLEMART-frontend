@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaNairaSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { get_orders } from "../../store/reducers/orderReducer";
 
 function Orders() {
@@ -32,12 +32,12 @@ function Orders() {
 
   return (
     <div className="bg-white dark:bg-[#232D3F] p-4 rounded-md">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-slate-600 dark:text-white">
           My Orders{" "}
         </h2>
         <select
-          className="outline-none px-3 py-1 border rounded-md text-slate-600"
+          className="px-3 py-1 border rounded-md outline-none text-slate-600"
           value={state}
           onChange={(e) => setState(e.target.value)}
         >
@@ -85,8 +85,7 @@ function Orders() {
 
                   <td
                     scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap
-               flex justify-start items-center "
+                    className="flex items-center justify-start px-6 py-4 font-medium whitespace-nowrap "
                   >
                     <FaNairaSign />
                     <span>{o.price} </span>

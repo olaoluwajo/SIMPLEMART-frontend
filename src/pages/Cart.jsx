@@ -67,9 +67,9 @@ function Cart() {
       <section className='bg-[url("/images/banner/shop.png")] h-[220px]   bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-            <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
+            <div className="flex flex-col items-center justify-center w-full h-full gap-1 text-white">
               <h2 className="text-3xl font-bold">Cart Page </h2>
-              <div className="flex justify-center items-center gap-2 text-2xl w-full">
+              <div className="flex items-center justify-center w-full gap-2 text-2xl">
                 <Link to="/">Home</Link>
                 <span className="pt-1">
                   <IoIosArrowForward />
@@ -88,8 +88,8 @@ function Cart() {
               <div className="w-[67%] md-lg:w-full">
                 <div className="pr-3 md-lg:pr-0">
                   <div className="flex flex-col gap-4">
-                    <div className="bg-white p-4 dark:bg-transparent dark:border-slate-600 dark:border">
-                      <h2 className="text-md text-green-500 font-semibold">
+                    <div className="p-4 bg-white dark:bg-transparent dark:border-slate-600 dark:border">
+                      <h2 className="font-semibold text-green-500 text-md">
                         Stock Products {cart_products.length}
                       </h2>
                     </div>
@@ -98,23 +98,23 @@ function Cart() {
                         key={i}
                         className="flex bg-white dark:bg-[#232D3F] p-4 flex-col gap-2 divide-y-2 dark:divide-slate-500"
                       >
-                        <div className="flex justify-start items-center">
-                          <h2 className="text-md text-slate-600 dark:text-white font-bold">
+                        <div className="flex items-center justify-start">
+                          <h2 className="font-bold text-md text-slate-600 dark:text-white">
                             {p.shopName}
                           </h2>
                         </div>
 
                         {p.products.map((pt, i) => (
-                          <div key={i} className="w-full flex flex-wrap ">
-                            <div className="flex sm:w-full gap-2 w-7/12">
-                              <div className="flex gap-4 justify-start pt-2 items-center">
+                          <div key={i} className="flex flex-wrap w-full ">
+                            <div className="flex w-7/12 gap-2 sm:w-full">
+                              <div className="flex items-center justify-start gap-4 pt-2">
                                 <img
                                   className="w-[80px] h-[80px] "
                                   src={pt.productInfo.images[0]}
                                   alt=""
                                 />
                                 <div className="px-4 dark:text-white text-slate-600">
-                                  <h2 className="text-md font-semibold">
+                                  <h2 className="font-semibold text-md">
                                     {pt.productInfo.name}
                                   </h2>
                                   <span className="text-sm">
@@ -124,11 +124,11 @@ function Cart() {
                               </div>
                             </div>
 
-                            <div className="flex justify-between w-5/12 items-center sm:w-full sm:mt-3">
+                            <div className="flex items-center justify-between w-5/12 sm:w-full sm:mt-3">
                               <div className="pl-4 sm:pl-0">
-                                <div className="flex justify-center  text-orange-500 dark:text-green-500 items-center ">
+                                <div className="flex items-center justify-center text-orange-500 dark:text-green-500 ">
                                   <FaNairaSign />
-                                  <h2 className="text-lg text-orange-500 dark:text-green-500 font-bold">
+                                  <h2 className="text-lg font-bold text-orange-500 dark:text-green-500">
                                     {pt.productInfo.price -
                                       Math.floor(
                                         (pt.productInfo.price *
@@ -137,7 +137,7 @@ function Cart() {
                                       )}
                                   </h2>
                                 </div>
-                                <div className="flex justify-center  dark:text-red-500 items-center ">
+                                <div className="flex items-center justify-center dark:text-red-500 ">
                                   <FaNairaSign />
                                   <p className="line-through ">
                                     {pt.productInfo.price}
@@ -148,7 +148,7 @@ function Cart() {
                                 </p>
                               </div>
 
-                              <div className="flex gap-2 flex-col">
+                              <div className="flex flex-col gap-2">
                                 <div className="flex bg-slate-200 dark:bg-slate-600 h-[30px] justify-center items-center text-xl divide-x-2 dark:text-white divide-slate-600 dark:divide-slate-200">
                                   <div
                                     onClick={() => dec(pt.quantity, pt._id)}
@@ -188,7 +188,7 @@ function Cart() {
                     {outOfStockProduct.length > 0 && (
                       <div className="flex flex-col gap-3">
                         <div className="bg-white dark:bg-[#232D3F]  p-4">
-                          <h2 className="text-md text-red-500 font-semibold">
+                          <h2 className="font-semibold text-red-500 text-md">
                             Out of Stock {outOfStockProduct.length}
                           </h2>
                         </div>
@@ -196,18 +196,18 @@ function Cart() {
                         <div className="divide-y-2 dark:divide-slate-500 bg-white dark:bg-[#232D3F] p-4">
                           {outOfStockProduct.map((p, i) => (
                             <div
-                              className="w-full flex flex-wrap space-y-6"
+                              className="flex flex-wrap w-full space-y-6"
                               key={i}
                             >
-                              <div className="flex sm:w-full gap-2 w-7/12">
-                                <div className="flex gap-2 justify-start items-center">
+                              <div className="flex w-7/12 gap-2 sm:w-full">
+                                <div className="flex items-center justify-start gap-2">
                                   <img
                                     className="w-[80px] h-[80px]"
                                     src={p.products[0].images[0]}
                                     alt=""
                                   />
-                                  <div className="px-4 text-slate-600  dark:text-white ">
-                                    <h2 className="text-md font-semibold">
+                                  <div className="px-4 text-slate-600 dark:text-white ">
+                                    <h2 className="font-semibold text-md">
                                       {p.products[0].name}{" "}
                                     </h2>
                                     <span className="text-sm">
@@ -219,9 +219,9 @@ function Cart() {
 
                               <div className="flex justify-between w-5/12 sm:w-full sm:mt-3">
                                 <div className="pl-4 sm:pl-0">
-                                  <div className="flex justify-center  text-orange-500 dark:text-green-500 items-center ">
+                                  <div className="flex items-center justify-center text-orange-500 dark:text-green-500 ">
                                     <FaNairaSign />
-                                    <h2 className="text-lg text-orange-500 dark:text-green-500 font-bold">
+                                    <h2 className="text-lg font-bold text-orange-500 dark:text-green-500">
                                       {p.products[0].price -
                                         Math.floor(
                                           (p.products[0].price *
@@ -231,7 +231,7 @@ function Cart() {
                                     </h2>
                                   </div>
 
-                                  <div className="flex justify-center  dark:text-red-500 items-center ">
+                                  <div className="flex items-center justify-center dark:text-red-500 ">
                                     <FaNairaSign />
                                     <p className="line-through ">
                                       {p.products[0].price}
@@ -242,7 +242,7 @@ function Cart() {
                                   </p>
                                 </div>
 
-                                <div className="flex gap-2 flex-col">
+                                <div className="flex flex-col gap-2">
                                   <div className="flex bg-slate-200 dark:bg-slate-600 h-[30px] justify-center items-center text-xl divide-x-2 dark:text-white divide-slate-600 dark:divide-slate-200 ">
                                     <div
                                       onClick={() => dec(p.quantity, p._id)}
@@ -279,23 +279,23 @@ function Cart() {
                   {cart_products.length > 0 && (
                     <div className="bg-white dark:bg-[#232D3F] p-3 text-slate-600 dark:text-slate-100 flex flex-col gap-3">
                       <h2 className="text-xl font-bold">Order Summary</h2>
-                      <div className="flex justify-between items-center">
+                      <div className="flex items-center justify-between">
                         <span> {buy_product_item} </span>
-                        <div className="flex justify-center items-center ">
+                        <div className="flex items-center justify-center ">
                           <FaNairaSign />
                           <span>{price} </span>
                         </div>
                       </div>
-                      <div className="flex justify-between items-center">
+                      <div className="flex items-center justify-between">
                         <span>Shipping Fee </span>
-                        <div className="flex justify-center items-center ">
+                        <div className="flex items-center justify-center ">
                           <FaNairaSign />
                           <span>{shipping_fee} </span>
                         </div>
                       </div>
                       <div className="flex gap-2">
                         <input
-                          className="w-full px-3 py-2 border dark:bg-transparent border-slate-200 outline-0 focus:border-green-500 rounded-sm"
+                          className="w-full px-3 py-2 border rounded-sm dark:bg-transparent border-slate-200 outline-0 focus:border-green-500"
                           type="text"
                           placeholder="Input Voucher Coupon"
                         />
@@ -304,7 +304,7 @@ function Cart() {
                         </button>
                       </div>
 
-                      <div className="flex justify-between items-center">
+                      <div className="flex items-center justify-between">
                         <span>Total</span>
                         <div className="flex  text-[#059473]   font-bold justify-center items-center ">
                           <FaNairaSign />
@@ -325,13 +325,21 @@ function Cart() {
               </div>
             </div>
           ) : (
-            <div>
-              <Link
-                className="px-4 py-2 dark:bg-green-500 bg-indigo-500 text-white rounded-md"
-                to="/shops"
-              >
-                Shop Now
-              </Link>
+            <div className="flex flex-col items-center justify-center bg-gry-100 min-h-[50vh] dark:bg-gray-800 bg-white">
+              <h1 className="mb-4 text-3xl font-bold text-gray-700 dark:text-gray-200">
+                Your Cart is Empty
+              </h1>
+              <p className="mb-6 text-lg text-gray-500 dark:text-gray-400">
+                Looks like you haven&apos;t added anything to your cart yet.
+              </p>
+              <div>
+                <Link
+                  className="px-4 py-2 text-white transition duration-300 bg-indigo-500 rounded-md dark:bg-green-500 hover:bg-indigo-600 dark:hover:bg-green-600"
+                  to="/shops"
+                >
+                  Shop Now
+                </Link>
+              </div>
             </div>
           )}
         </div>

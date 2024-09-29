@@ -33,26 +33,26 @@ function Index() {
 
   return (
     <div>
-      <div className="grid grid-cols-3 md:grid-cols-1 gap-5">
-        <div className="dark:hover:shadow-slate-700 transition-all hover:shadow-lg hover:translate-y-[-1px] flex justify-center items-center p-5 bg-white rounded-md gap-5 dark:bg-[#232D3F] ">
+      <div className="grid grid-cols-3 gap-5 md:grid-cols-1">
+        <div className="dark:hover:shadow-slate-700 transition-all hover:shadow-lg hover:translate-y-[-1px] flex justify-center items-center p-5 bg-white rounded-md gap-5  ">
           <div className="bg-green-100 w-[47px] h-[47px] rounded-full flex justify-center items-center text-xl">
             <span className="text-xl text-green-800 ">
               <RiShoppingCart2Fill />
             </span>
           </div>
-          <div className="flex flex-col justify-start items-start text-slate-600 dark:text-slate-100">
+          <div className="flex flexdark:bg-[#232D3F]-col justify-start items-start text-slate-600 dark:text-slate-100">
             <h2 className="text-3xl font-bold md-lg:text-xl">{totalOrder}</h2>
             <span>Orders </span>
           </div>
         </div>
         <div className="dark:hover:shadow-slate-700 transition-all hover:shadow-lg hover:translate-y-[-1px] flex justify-center items-center p-5 bg-white dark:bg-[#232D3F]  rounded-md gap-5">
           <div className="bg-green-100 w-[47px] h-[47px] rounded-full flex justify-center items-center text-xl">
-            <span className="text-xl  text-green-800">
+            <span className="text-xl text-green-800">
               <RiShoppingCart2Fill />
             </span>
           </div>
-          <div className="flex flex-col justify-start items-start text-slate-600 dark:text-slate-100 ">
-            <h2 className="text-3xl md-lg:text-xl font-bold ">
+          <div className="flex flex-col items-start justify-start text-slate-600 dark:text-slate-100 ">
+            <h2 className="text-3xl font-bold md-lg:text-xl ">
               {pendingOrder}
             </h2>
             <span>Pending Orders </span>
@@ -64,7 +64,7 @@ function Index() {
               <RiShoppingCart2Fill />
             </span>
           </div>
-          <div className="flex flex-col justify-start items-start text-slate-600 dark:text-slate-100 ">
+          <div className="flex flex-col items-start justify-start text-slate-600 dark:text-slate-100 ">
             <h2 className="text-3xl font-bold md-lg:text-xl">
               {cancelledOrder}
             </h2>
@@ -77,7 +77,7 @@ function Index() {
         <div className="pt-4">
           <div className="relative overflow-x-auto rounded-md">
             <table className="w-full text-sm text-left text-gray-500">
-              <thead className="text-xs text-gray-700 dark:bg-slate-900 dark:text-gray-50 uppercase bg-gray-200 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-slate-900 dark:text-gray-50 ">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Order Id
@@ -110,8 +110,7 @@ function Index() {
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium whitespace-nowrap
-               flex justify-start items-center "
+                      className="flex items-center justify-start px-6 py-4 font-medium whitespace-nowrap "
                     >
                       <FaNairaSign />
                       <span>{o.price} </span>

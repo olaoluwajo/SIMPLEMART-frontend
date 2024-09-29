@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { MdEmail } from "react-icons/md";
 import {
   IoMdArrowDropdown,
@@ -15,12 +14,12 @@ import {
   FaUser,
   FaPhoneAlt,
 } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useContext,  useState } from "react";
 import { DarkModeContext } from "../../context/DackModeContext";
 import { FaSquareXTwitter, FaHeart, FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../Logo";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import IconButton from "../IconButton";
 
 function Header() {
@@ -30,7 +29,9 @@ function Header() {
 
   const { categories } = useSelector((state) => state.home);
   const { userInfo } = useSelector((state) => state.auth);
-  const { cart_product_count } = useSelector((state) => state.cart);
+  const { cart_product_count, wishlist_count } = useSelector(
+    (state) => state.cart
+  );
 
   const { pathname } = useLocation();
 
@@ -38,7 +39,7 @@ function Header() {
   const [categoryShow, setCategoryShow] = useState(true);
 
   // const user = false;
-  const wishlist_count = 3;
+  // const wishlist_count = 3;
   // console.log(categories)
 
   // const categories = [];
@@ -57,9 +58,12 @@ function Header() {
       navigate("/login");
     }
   };
-    const redirect = () => {
-      navigate("*");
-    };
+
+ 
+
+  const redirect = () => {
+    navigate("*");
+  };
 
   return (
     <div className="w-full  border-b-2 dark:border-slate-600 border-slate-200  bg-[#fefefa] dark:bg-[#040D12]">
@@ -137,6 +141,7 @@ function Header() {
         </div>
       </div>
 
+      {/* DESTOP MENU HERE */}
       <div className="w-white ">
         <div className="w-[85%] lg:w-[90%] mx-auto">
           <div className="flex flex-wrap items-center justify-between py-5 md-lg:py-4">
@@ -230,43 +235,12 @@ function Header() {
 
                 <div className="flex items-center justify-center gap-5 md-lg:hidden">
                   <div className="flex justify-center gap-5">
-                    {/* <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
-                      <span className="text-xl text-green-500">
-                        <FaHeart />
-                      </span>
-                      <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                        {wishlist_count}
-                      </div>
-                    </div> */}
-
-                    <Link
-                      onClick={redirect_cart_page}
-                      to={"/cart"}
-                      className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
-                    >
-                      <span className="text-xl text-green-500">
-                        <FaHeart />
-                      </span>
-                      {wishlist_count !== 0 && (
-                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]">
-                          {wishlist_count}
-                        </div>
-                      )}
-                    </Link>
-                    {/* <Link
-                      onClick={redirect_cart_page}
-                      to={"/cart"}
-                      className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
-                    >
-                      <span className="text-xl text-green-500">
-                        <FaCartShopping />
-                      </span>
-                      {cart_product_count !== 0 && (
-                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]">
-                          {cart_product_count}
-                        </div>
-                      )}
-                    </Link> */}
+                    <IconButton
+                      icon={<FaHeart />}
+                      count={wishlist_count}
+                      to="/dashboard/my-wishlist"
+                      className="bg-[#e2e2e2]"
+                    />
                     <IconButton
                       icon={<FaCartShopping />}
                       count={cart_product_count}
@@ -287,6 +261,8 @@ function Header() {
           </div>
         </div>
       </div>
+
+      {/* MOBILE MENU HERE */}
 
       <div className="hidden md-lg:block">
         <div
@@ -340,28 +316,19 @@ function Header() {
             </div>
 
             <div className="flex justify-start gap-5">
-              <div className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]">
-                <span className="text-xl text-green-500">
-                  <FaHeart />
-                </span>
-                <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                  {wishlist_count}
-                </div>
-              </div>
-              <Link
+              <IconButton
+                icon={<FaHeart />}
+                count={wishlist_count}
+                to="/dashboard/my-wishlist"
+                className="bg-[#e2e2e2]"
+              />
+              <IconButton
+                icon={<FaCartShopping />}
+                count={cart_product_count}
                 onClick={redirect_cart_page}
-                to={"/cart"}
-                className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
-              >
-                <span className="text-xl text-green-500">
-                  <FaCartShopping />
-                </span>
-                {cart_product_count !== 0 && (
-                  <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
-                    {cart_product_count}
-                  </div>
-                )}
-              </Link>
+                to="/cart"
+                className="bg-[#e2e2e2]"
+              />
             </div>
 
             <ul className="flex flex-col items-start justify-start text-sm font-bold uppercase">
@@ -463,6 +430,8 @@ function Header() {
           </div>
         </div>
       </div>
+
+      {/* FILTER AND SEARCH FORM */}
 
       <div className="w-[85%] lg:w-[90%] mx-auto">
         <div className="flex flex-wrap w-full md-lg:gap-4">

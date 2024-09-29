@@ -5,13 +5,16 @@ import Rating from "../Rating";
 import { FaNairaSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { Link,  useNavigate } from "react-router-dom";
-import { add_to_cart } from "../../store/reducers/cartReducer";
+import { add_to_cart, add_to_wishlist, messageClear } from "../../store/reducers/cartReducer";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 function ShopProducts({ styles }) {
 const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const { products } = useSelector((state) => state.home);
+  const { errorMessage, successMessage } = useSelector((state) => state.cart);
 
 const maxLength = 40;
   const add_cart = (id) => {
@@ -27,6 +30,33 @@ const maxLength = 40;
       navigate("/login");
     }
   };
+
+    useEffect(() => {
+      if (successMessage) {
+        toast.success(successMessage);
+        dispatch(messageClear());
+      }
+      if (errorMessage) {
+        toast.error(errorMessage);
+        dispatch(messageClear());
+      }
+    }, [successMessage, errorMessage, dispatch]);
+
+  const add_wishlist = (pro) => {
+    dispatch(
+      add_to_wishlist({
+        userId: userInfo.id,
+        productId: pro._id,
+        name: pro.name,
+        price: pro.price,
+        image: pro.images[0],
+        discount: pro.discount,
+        rating: pro.rating,
+        slug: pro.slug,
+      })
+    );
+  };
+
 
 
   return (
@@ -53,27 +83,37 @@ const maxLength = 40;
                 : "md-lg:w-full relative group h-[210px] md:h-[270px] overflow-hidden"
             }
           >
+            {p.discount ? (
+              <div className="flex justify-center items-center absolute text-white    size-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2  z-10">
+                {p.discount}%
+              </div>
+            ) : (
+              ""
+            )}
             <img
               className="h-[240px]   rounded-md md:h-[270px] xs:h-[170px] w-full object-cover"
               src={p.images[0]}
               alt={p.name}
             />
 
-            <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">
-              <li className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all">
+            <ul className="absolute flex items-center justify-center w-full gap-2 transition-all duration-700 -bottom-10 group-hover:bottom-3">
+              <li
+                onClick={() => add_wishlist(p)}
+                className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all border border-black"
+              >
                 <FaRegHeart />
               </li>
 
               <Link
-                to="/product/details/new"
-                className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                to={`/product/details/${p.slug}`}
+                className="border border-black  w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
               >
                 <FaEye />
               </Link>
 
               <li
                 onClick={() => add_cart(p._id)}
-                className="w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
+                className="border border-black  w-[38px] h-[38px] md-lg:size-[25px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all"
               >
                 <RiShoppingCartLine />
               </li>
