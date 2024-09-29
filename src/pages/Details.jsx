@@ -147,7 +147,7 @@ function Details() {
       </section>
 
       <section>
-        <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto mb-4">
+        <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto my-4">
           <div className="grid grid-cols-2 gap-8 md-lg:grid-cols-1">
             <div>
               <div className="p-5 border dark:border-slate-700">
@@ -223,16 +223,17 @@ function Details() {
 
               <div className="text-slate-600 dark:text-white">
                 <p>
-                  {product.description.length > maxLength ? (
+                  {/* {product.description.length > maxLength ? (
                     <>
                       {product.description.substring(0, maxLength)}
                       ...
                     </>
                   ) : (
                     product.description
-                  )}
+                  )} */}
                   {/* {product.description.substring(0, 230)}
                   {"..."} */}
+                  {product.description}
                 </p>
               </div>
 
