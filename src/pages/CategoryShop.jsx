@@ -151,7 +151,7 @@ function CategoryShop() {
                 />
                 <div>
                   <span className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                    ${Math.floor(state.values[0])} - $
+                    N{Math.floor(state.values[0])} - N
                     {Math.floor(state.values[1])}
                   </span>
                 </div>

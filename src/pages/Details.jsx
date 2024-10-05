@@ -87,7 +87,11 @@ function Details() {
     dispatch(product_details(slug));
   }, [dispatch, slug]);
 
-  const maxLength = 230;
+  // const maxLength = 230;
+  
+  function formatNumber(number) {
+    return new Intl.NumberFormat("en-US").format(number);
+  }
 
   const inc = () => {
     if (quantity >= product.stock) {
@@ -198,18 +202,21 @@ function Details() {
                     Price :
                     <div className="flex items-center justify-center line-through ">
                       <FaNairaSign size={17} />
-                      <h2 className="">{product.price}</h2>
+                      <h2 className="">{formatNumber(product.price)}</h2>
                     </div>
                     <div className="flex items-center justify-center text-green-400 ">
                       <FaNairaSign size={17} />
                       <h2>
-                        {product.price -
-                          Math.floor(
+                        {formatNumber(
+                          product.price -
                             (product.price * product.discount) / 100
-                          )}{" "}
-                        (-
-                        {product.discount}
-                        %){" "}
+                        )}
+
+                        <sup>
+                          (-
+                          {product.discount}
+                          %)
+                        </sup>
                       </h2>
                     </div>
                   </>

@@ -10,7 +10,7 @@ function Products({ title, products }) {
   //   [1, 2, 3],
   //   [4, 5, 6],
   // ];
-    const maxLength = 35;
+  const maxLength = 35;
 
   const responsive = {
     superLargeDesktop: {
@@ -30,6 +30,10 @@ function Products({ title, products }) {
       items: 1,
     },
   };
+
+  function formatNumber(number) {
+    return new Intl.NumberFormat("en-US").format(number);
+  }
 
   function ButtonGroup({ next, previous }) {
     return (
@@ -73,7 +77,7 @@ function Products({ title, products }) {
                 <Link
                   key={j}
                   className="flex items-center justify-start border dark:border-slate-800 "
-                  to="#"
+                  to={`/product/details/${pl.slug}`}
                 >
                   <img
                     className="w-[110px] h-[110px] md-lg:size-[70px]"
@@ -93,7 +97,11 @@ function Products({ title, products }) {
                     </h2>
                     <div className="flex items-center justify-center text-lg font-bold md-lg:text-xs ">
                       <FaNairaSign />
-                      <span className="">{pl.price}</span>
+                      <span className="">
+                        {formatNumber(
+                          pl.price - pl.price * (pl.discount / 100)
+                        )}
+                      </span>
                     </div>
                   </div>
                 </Link>

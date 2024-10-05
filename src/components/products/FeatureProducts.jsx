@@ -10,7 +10,7 @@ import {
   add_to_wishlist,
   messageClear,
 } from "../../store/reducers/cartReducer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function FeatureProducts({ products }) {
@@ -18,17 +18,22 @@ function FeatureProducts({ products }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const { errorMessage, successMessage } = useSelector((state) => state.cart);
-  const maxLength = 40;
+  const maxLength = 45;
+
+  const [shuffledProducts, setShuffledProducts] = useState([]);
+
+  useEffect(() => {
+    setShuffledProducts(shuffleProducts(products));
+  }, [products]);
+  const shuffleProducts = (array) => {
+    return [...array].sort(() => Math.random() - 0.1);
+  };
+
+  // const shuffledProducts = shuffleProducts(products);
 
   function formatNumber(number) {
     return new Intl.NumberFormat("en-US").format(number);
   }
-  // const formatNumber = (number) => {
-  //   return new Intl.NumberFormat("en-US", {
-  //     minimumFractionDigits: 2,
-  //     maximumFractionDigits: 2,
-  //   }).format(number);
-  // };
 
   const add_cart = (id) => {
     if (userInfo) {
@@ -80,7 +85,7 @@ function FeatureProducts({ products }) {
       </div>
 
       <div className="grid w-full grid-cols-4 gap-6 md-lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
-        {products.map((p, i) => (
+        {shuffledProducts.map((p, i) => (
           <div
             key={i}
             className="transition-all duration-500 border dark:border-slate-800 group hover:shadow-md dark:hover:shadow-slate-400 hover:-mt-3"
@@ -127,7 +132,7 @@ function FeatureProducts({ products }) {
               <h2 className="font-bold">
                 {p.name.length > maxLength ? (
                   <>
-                    {p.name.substring(0, maxLength)}
+                    {p.name.slice(0, maxLength)}
                     ...
                   </>
                 ) : (
@@ -138,7 +143,9 @@ function FeatureProducts({ products }) {
                 <div className="flex items-center justify-center py-1">
                   <FaNairaSign />
                   <span className="font-semibold md-lg:text-xs">
-                    {formatNumber(p.price)}
+                    {p.discount
+                      ? formatNumber(p.price - p.price * (p.discount / 100))
+                      : formatNumber(p.price)}
                   </span>
                 </div>
               </div>
