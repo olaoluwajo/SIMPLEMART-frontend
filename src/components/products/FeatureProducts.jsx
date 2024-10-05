@@ -20,6 +20,16 @@ function FeatureProducts({ products }) {
   const { errorMessage, successMessage } = useSelector((state) => state.cart);
   const maxLength = 40;
 
+  function formatNumber(number) {
+    return new Intl.NumberFormat("en-US").format(number);
+  }
+  // const formatNumber = (number) => {
+  //   return new Intl.NumberFormat("en-US", {
+  //     minimumFractionDigits: 2,
+  //     maximumFractionDigits: 2,
+  //   }).format(number);
+  // };
+
   const add_cart = (id) => {
     if (userInfo) {
       dispatch(
@@ -127,7 +137,9 @@ function FeatureProducts({ products }) {
               <div className="flex items-center justify-start gap-3">
                 <div className="flex items-center justify-center py-1">
                   <FaNairaSign />
-                  <span className="font-semibold md-lg:text-xs">{p.price}</span>
+                  <span className="font-semibold md-lg:text-xs">
+                    {formatNumber(p.price)}
+                  </span>
                 </div>
               </div>
               <div className="flex">

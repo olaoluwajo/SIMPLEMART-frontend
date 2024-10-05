@@ -34,13 +34,13 @@ function Index() {
   return (
     <div>
       <div className="grid grid-cols-3 gap-5 md:grid-cols-1">
-        <div className="dark:hover:shadow-slate-700 transition-all hover:shadow-lg hover:translate-y-[-1px] flex justify-center items-center p-5 bg-white rounded-md gap-5  ">
+        <div className="dark:hover:shadow-slate-700  dark:bg-[#232D3F]   transition-all hover:shadow-lg hover:translate-y-[-1px] flex justify-center items-center p-5 bg-white rounded-md gap-5  ">
           <div className="bg-green-100 w-[47px] h-[47px] rounded-full flex justify-center items-center text-xl">
             <span className="text-xl text-green-800 ">
               <RiShoppingCart2Fill />
             </span>
           </div>
-          <div className="flex flexdark:bg-[#232D3F]-col justify-start items-start text-slate-600 dark:text-slate-100">
+          <div className="flex dark:bg-[#232D3F]-col justify-start items-start text-slate-600 dark:text-slate-100">
             <h2 className="text-3xl font-bold md-lg:text-xl">{totalOrder}</h2>
             <span>Orders </span>
           </div>

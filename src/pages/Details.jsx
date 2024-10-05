@@ -225,13 +225,13 @@ function Details() {
                 <p>
                   {/* {product.description.length > maxLength ? (
                     <>
-                      {product.description.substring(0, maxLength)}
+                      {product.description.slice(0, maxLength)}
                       ...
                     </>
                   ) : (
                     product.description
                   )} */}
-                  {/* {product.description.substring(0, 230)}
+                  {/* {product.description.slice(0, 230)}
                   {"..."} */}
                   {product.description}
                 </p>
@@ -390,7 +390,7 @@ function Details() {
             <div className="w-[28%] md-lg:w-full">
               <div className="pl-4 md-lg:pl-0">
                 <div className="px-3 py-2 text-slate-600 bg-slate-200 dark:text-slate-100 dark:bg-slate-600">
-                  <h2 className="font-bold">From Simple Shop</h2>
+                  <h2 className="font-bold">From {product.shopName} </h2>
                 </div>
 
                 <div className="flex flex-col gap-5 p-3 mt-3 border dark:border-slate-600">
