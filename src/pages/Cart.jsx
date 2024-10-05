@@ -59,7 +59,9 @@ function Cart() {
     }
   };
 
-
+  function formatNumber(number) {
+    return new Intl.NumberFormat("en-US").format(number);
+  }
 
 
   return (
@@ -129,18 +131,20 @@ function Cart() {
                                 <div className="flex items-center justify-center text-orange-500 dark:text-green-500 ">
                                   <FaNairaSign />
                                   <h2 className="text-lg font-bold text-orange-500 dark:text-green-500">
-                                    {pt.productInfo.price -
-                                      Math.floor(
-                                        (pt.productInfo.price *
-                                          pt.productInfo.discount) /
-                                          100
-                                      )}
+                                    {formatNumber(
+                                      pt.productInfo.price -
+                                        Math.floor(
+                                          (pt.productInfo.price *
+                                            pt.productInfo.discount) /
+                                            100
+                                        )
+                                    )}
                                   </h2>
                                 </div>
                                 <div className="flex items-center justify-center dark:text-red-500 ">
                                   <FaNairaSign />
                                   <p className="line-through ">
-                                    {pt.productInfo.price}
+                                    {formatNumber(pt.productInfo.price)}
                                   </p>
                                 </div>
                                 <p className="dark:text-white">

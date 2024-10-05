@@ -319,27 +319,6 @@ function Shops() {
                     </span>
                   </div>
 
-                  {/* <div
-                    onClick={resetRating}
-                    className="flex items-start justify-start gap-2 text-xl text-orange-500 cursor-pointer"
-                  >
-                    
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                    <span>
-                      <CiStar />
-                    </span>
-                  </div> */}
 
                   <div
                     onClick={resetRating}

@@ -63,7 +63,7 @@ function Details() {
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
   // const discount = 10;
-  const stock = 3;
+  // const stock = 3;
   const [state, setState] = useState("reviews");
   const [quantity, setQuantity] = useState(1);
   const { userInfo } = useSelector((state) => state.auth);
@@ -71,6 +71,7 @@ function Details() {
   const { product, relatedProducts, moreProducts } = useSelector(
     (state) => state.home
   );
+  // console.log(product);
 
   useEffect(() => {
     if (successMessage) {
@@ -88,7 +89,7 @@ function Details() {
   }, [dispatch, slug]);
 
   // const maxLength = 230;
-  
+
   function formatNumber(number) {
     return new Intl.NumberFormat("en-US").format(number);
   }
@@ -118,6 +119,38 @@ function Details() {
     } else {
       navigate("/login");
     }
+  };
+
+  function buynow() {
+    let price = 0;
+    if (product.discount !== 0) {
+      price =
+        product.price - Math.floor((product.price * product.discount) / 100);
+    } else {
+      price = product.price;
+    }
+    const obj = [
+      {
+        sellerId: product.sellerId,
+        shopName: product.shopName,
+        price: quantity * (price - Math.floor((price * 5) / 100)),
+        products: [
+          {
+            quantity,
+            productInfo: product,
+          },
+        ],
+      },
+    ];
+
+    navigate("/delivery", {
+      state: {
+        products: obj,
+        price: price * quantity,
+        shipping_fee: 50,
+        items: 1,
+      },
+    });
   };
 
   return (
@@ -334,8 +367,11 @@ function Details() {
               </div>
 
               <div className="flex gap-3">
-                {stock ? (
-                  <button className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#247462] text-white">
+                {product.stock ? (
+                  <button
+                    onClick={buynow}
+                    className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#247462] text-white"
+                  >
                     Buy Now
                   </button>
                 ) : (

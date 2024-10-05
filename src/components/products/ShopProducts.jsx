@@ -57,7 +57,9 @@ const maxLength = 40;
     );
   };
 
-
+  function formatNumber(number) {
+    return new Intl.NumberFormat("en-US").format(number);
+  }
 
   return (
     <div
@@ -135,7 +137,10 @@ const maxLength = 40;
             <div className="flex items-center justify-start gap-3">
               <div className="flex items-center justify-center md-lg:text-xs">
                 <FaNairaSign />
-                <span className="font-semibold text-md"> {p.price}</span>
+                <span className="font-semibold text-md">
+                  {" "}
+                  {formatNumber(p.price)}
+                </span>
               </div>
               <div className="flex">
                 <Rating ratings={p.rating} />
