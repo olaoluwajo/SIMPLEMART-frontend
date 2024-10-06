@@ -242,7 +242,7 @@ function Delivery() {
                         key={i}
                         className="w-full flex flex-wrap justify-between "
                       >
-                        <div className="flex sm:w-full gap-2 ">
+                        <div className="flex sm:w-full gap-2 w-3/4 ">
                           <div className="flex gap-4 justify-start pt-2 items-center">
                             <img
                               className="w-[80px] h-[80px] "

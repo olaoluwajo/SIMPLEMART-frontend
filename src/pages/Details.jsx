@@ -14,7 +14,6 @@ import {
 } from "react-icons/fa6";
 import Reviews from "../components/Reviews";
 import { Navigation, Pagination } from "swiper/modules";
-// import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/pagination";
 import "swiper/css";
@@ -151,7 +150,7 @@ function Details() {
         items: 1,
       },
     });
-  };
+  }
 
   return (
     <div className="bg-[#eeeeee]  dark:bg-[#040D12]">
@@ -349,8 +348,7 @@ function Details() {
                         className="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-purple-500 rounded-full text-white"
                         href="#"
                       >
-                        {" "}
-                        <FaLinkedin />{" "}
+                        <FaLinkedin />
                       </a>
                     </li>
                     <li>
@@ -358,8 +356,7 @@ function Details() {
                         className="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-blue-500 rounded-full text-white"
                         href="#"
                       >
-                        {" "}
-                        <FaGithub />{" "}
+                        <FaGithub />
                       </a>
                     </li>
                   </ul>
@@ -420,7 +417,7 @@ function Details() {
 
                 <div>
                   {state === "reviews" ? (
-                    <Reviews />
+                    <Reviews product={product} />
                   ) : (
                     <p className="py-5 leading-8 text-slate-600 dark:text-slate-100">
                       {product.description}
@@ -479,8 +476,8 @@ function Details() {
 
       <section>
         <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-          <h2 className="py-8 text-2xl text-slate-600 dark:text-slate-100">
-            Related Products{" "}
+          <h2 className="py-8 text-2xl font-bold text-slate-600 dark:text-slate-100">
+            Related Products
           </h2>
           <div>
             <Swiper

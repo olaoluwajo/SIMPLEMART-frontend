@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Rating from "./Rating";
 import RatingTemp from "./RatingTemp";
 import Pagination from "./Pagination";
@@ -7,23 +8,50 @@ import { Link } from "react-router-dom";
 import RatingReact from "react-rating";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { customer_review } from "../store/reducers/homeReducer";
+import toast from "react-hot-toast";
+import { messageClear } from "../store/reducers/cartReducer";
 
-function Reviews() {
-
-
+function Reviews({ product }) {
+  const dispatch = useDispatch();
 
   const [parPage, setParPage] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
+  const { userInfo } = useSelector((state) => state.auth);
+  const { successMessage } = useSelector((state) => state.home);
 
-     const userInfo = {};
+  // const userInfo = {};
 
-     const [rat, setRat] = useState("2");
-     const [re, setRe] = useState("");
+  const [rat, setRat] = useState("2");
+  const [re, setRe] = useState("");
+
+  function review_submit(e) {
+    e.preventDefault();
+
+    const obj = {
+      name: userInfo.name,
+      review: re,
+      rating: rat,
+      productId: product._id,
+    };
+    console.log(obj);
+    dispatch(customer_review(obj));
+  }
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage);
+      setRat("");
+      setRe("");
+      dispatch(messageClear());
+    }
+  }, [successMessage, dispatch]);
 
   return (
     <div className="mt-8">
       <div className="flex gap-10 md-lg:flex-col">
-        <div className="flex flex-col gap-2 justify-start items-start py-4">
+        <div className="flex flex-col items-start justify-start gap-2 py-4">
           <div>
             <span className="text-6xl font-semibold dark:text-slate-50">
               4.5
@@ -40,8 +68,8 @@ function Reviews() {
           </p>
         </div>
 
-        <div className="flex gap-2 flex-col py-4">
-          <div className="flex justify-start items-center gap-5">
+        <div className="flex flex-col gap-2 py-4">
+          <div className="flex items-center justify-start gap-5">
             <div className="text-md flex gap-1 w-[93px]">
               <RatingTemp rating={5} />
             </div>
@@ -54,7 +82,7 @@ function Reviews() {
             </p>
           </div>
 
-          <div className="flex justify-start items-center gap-5">
+          <div className="flex items-center justify-start gap-5">
             <div className="text-md flex gap-1 w-[93px]">
               <RatingTemp rating={4} />
             </div>
@@ -66,7 +94,7 @@ function Reviews() {
             </p>
           </div>
 
-          <div className="flex justify-start items-center gap-5">
+          <div className="flex items-center justify-start gap-5">
             <div className="text-md flex gap-1 w-[93px]">
               <RatingTemp rating={3} />
             </div>
@@ -78,7 +106,7 @@ function Reviews() {
             </p>
           </div>
 
-          <div className="flex justify-start items-center gap-5">
+          <div className="flex items-center justify-start gap-5">
             <div className="text-md flex gap-1 w-[93px]">
               <RatingTemp rating={2} />
             </div>
@@ -90,7 +118,7 @@ function Reviews() {
             </p>
           </div>
 
-          <div className="flex justify-start items-center gap-5">
+          <div className="flex items-center justify-start gap-5">
             <div className="text-md flex gap-1 w-[93px]">
               <RatingTemp rating={1} />
             </div>
@@ -102,7 +130,7 @@ function Reviews() {
             </p>
           </div>
 
-          <div className="flex justify-start items-center gap-5">
+          <div className="flex items-center justify-start gap-5">
             <div className="text-md flex gap-1 w-[93px]">
               <RatingTemp rating={0} />
             </div>
@@ -116,16 +144,16 @@ function Reviews() {
         </div>
       </div>
 
-      <h2 className="text-slate-600 dark:text-slate-100 text-xl font-bold py-5">
+      <h2 className="py-5 text-xl font-bold text-slate-600 dark:text-slate-100">
         Product Review 10
       </h2>
-      <div className="flex flex-col gap-8 pb-10 pt-4">
+      <div className="flex flex-col gap-8 pt-4 pb-10">
         {[1, 2, 3, 4, 5].map((r, i) => (
           <div
             key={i}
             className="flex flex-col gap-1 text-slate-600 dark:text-slate-100 "
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div className="flex gap-1 text-xl">
                 <RatingTemp rating={4} />
               </div>
@@ -160,7 +188,7 @@ function Reviews() {
                 onChange={(e) => setRat(e)}
                 initialRating={rat}
                 emptySymbol={
-                  <span className="text-slate-600 dark:text-slate-100 text-4xl">
+                  <span className="text-4xl text-slate-600 dark:text-slate-100">
                     <CiStar />
                   </span>
                 }
@@ -171,17 +199,19 @@ function Reviews() {
                 }
               />
             </div>
-            <form>
+            <form onSubmit={review_submit}>
               <textarea
+                value={re}
+                onChange={(e) => setRe(e.target.value)}
                 required
-                className="border dark:border-slate-600  dark:text-white outline-0 p-3 w-full bg-transparent"
+                className="w-full p-3 bg-transparent border dark:border-slate-600 dark:text-white outline-0"
                 name=""
                 id=""
                 cols="30"
                 rows="5"
               ></textarea>
               <div className="mt-2">
-                <button className="py-1 px-8 bg-indigo-500 dark:bg-green-500 hover:shadow-lg   dark:hover:shadow-slate-300 text-white rounded-sm">
+                <button className="px-8 py-1 text-white bg-indigo-500 rounded-sm dark:bg-green-500 hover:shadow-lg dark:hover:shadow-slate-300">
                   Submit
                 </button>
               </div>
@@ -191,10 +221,9 @@ function Reviews() {
           <div>
             <Link
               to="/login"
-              className="py-1 px-5 bg-red-500 text-white rounded-sm"
+              className="px-5 py-1 text-white bg-red-500 rounded-sm"
             >
-              {" "}
-              Login First{" "}
+              Login First
             </Link>
           </div>
         )}
@@ -203,4 +232,4 @@ function Reviews() {
   );
 }
 
-export default Reviews
+export default Reviews;
