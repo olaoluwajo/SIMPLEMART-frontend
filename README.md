@@ -1,3 +1,5 @@
+# NOTE: CLONE FROM THE DEVELOPMENT BRANCH AND NOT FROM THE MAIN BRANCH 
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
