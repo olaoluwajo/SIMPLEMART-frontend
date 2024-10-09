@@ -255,7 +255,10 @@ function Details() {
                 ) : (
                   <div className="flex items-center justify-center text-green-400 ">
                     Price : <FaNairaSign size={17} />
-                    <h2 className="text-green-400"> {product.price} </h2>
+                    <h2 className="text-green-400">
+                      {" "}
+                      {formatNumber(product.price)}
+                    </h2>
                   </div>
                 )}
               </div>
@@ -461,7 +464,9 @@ function Details() {
                         <div className="flex gap-2">
                           <span className="flex items-center justify-center text-slate-600 dark:text-slate-100">
                             <FaNairaSign />
-                            <h2 className="text-lg font-bold">{p.price}</h2>
+                            <h2 className="text-lg font-bold">
+                              {formatNumber(p.price)}
+                            </h2>
                           </span>
                           <div className="flex items-center gap-2">
                             <Rating ratings={p.rating} />
@@ -531,7 +536,10 @@ function Details() {
                         <div className="flex items-center justify-start gap-3">
                           <span className="flex items-center justify-center text-slate-600 dark:text-slate-100">
                             <FaNairaSign />
-                            <h2 className="text-lg font-bold"> {p.price}</h2>
+                            <h2 className="text-lg font-bold">
+                              {" "}
+                              {formatNumber(p.price)}
+                            </h2>
                           </span>
                           <div className="flex">
                             <Rating ratings={p.rating} />
