@@ -9,17 +9,23 @@ import RatingReact from "react-rating";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { customer_review } from "../store/reducers/homeReducer";
+import {
+  customer_review,
+  get_reviews,
+  product_details,
+} from "../store/reducers/homeReducer";
 import toast from "react-hot-toast";
 import { messageClear } from "../store/reducers/cartReducer";
 
 function Reviews({ product }) {
   const dispatch = useDispatch();
 
-  const [parPage, setParPage] = useState(1);
+  const [parPage, setParPage] = useState(10);
   const [pageNumber, setPageNumber] = useState(1);
   const { userInfo } = useSelector((state) => state.auth);
-  const { successMessage } = useSelector((state) => state.home);
+  const { successMessage, reviews, rating_review, totalReview } = useSelector(
+    (state) => state.home
+  );
 
   // const userInfo = {};
 
@@ -35,18 +41,37 @@ function Reviews({ product }) {
       rating: rat,
       productId: product._id,
     };
-    console.log(obj);
+    // console.log(obj);
     dispatch(customer_review(obj));
   }
 
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage);
+      dispatch(
+        get_reviews({
+          productId: product._id,
+          pageNumber,
+        })
+      );
+      dispatch(product_details(product.slug));
       setRat("");
       setRe("");
       dispatch(messageClear());
     }
-  }, [successMessage, dispatch]);
+    // console.log(product);
+  }, [successMessage, dispatch, product, pageNumber]);
+
+  useEffect(() => {
+    if (product._id) {
+      dispatch(
+        get_reviews({
+          productId: product._id,
+          pageNumber,
+        })
+      );
+    }
+  }, [dispatch, pageNumber, product]);
 
   return (
     <div className="mt-8">
@@ -54,17 +79,17 @@ function Reviews({ product }) {
         <div className="flex flex-col items-start justify-start gap-2 py-4">
           <div>
             <span className="text-6xl font-semibold dark:text-slate-50">
-              4.5
+              {product.rating}
             </span>
             <span className="text-3xl font-semibold text-slate-600 dark:text-slate-200">
               /5
             </span>
           </div>
           <div className="flex text-3xl">
-            <Rating ratings={4.5} />
+            <Rating ratings={product.rating} />
           </div>
           <p className="text-sm text-slate-600 dark:text-slate-50">
-            15 Reviews
+            ({totalReview}) Reviews
           </p>
         </div>
 
@@ -75,10 +100,17 @@ function Reviews({ product }) {
             </div>
 
             <div className="w-[200px] h-[14px] bg-slate-200 relative">
-              <div className="h-full bg-[#Edbb0E] w-[60%]"></div>
+              <div
+                style={{
+                  width: `${Math.floor(
+                    (100 * (rating_review[0]?.sum || 0)) / totalReview
+                  )}%`,
+                }}
+                className="h-full bg-[#Edbb0E] w-[60%]"
+              ></div>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-100 w-[0%]">
-              10
+              {rating_review[0]?.sum}
             </p>
           </div>
 
@@ -87,10 +119,17 @@ function Reviews({ product }) {
               <RatingTemp rating={4} />
             </div>
             <div className="w-[200px] h-[14px] bg-slate-200 relative">
-              <div className="h-full bg-[#Edbb0E] w-[70%]"></div>
+              <div
+                style={{
+                  width: `${Math.floor(
+                    (100 * (rating_review[1]?.sum || 0)) / totalReview
+                  )}%`,
+                }}
+                className="h-full bg-[#Edbb0E] w-[70%]"
+              ></div>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-100 w-[0%]">
-              20
+              {rating_review[1]?.sum}
             </p>
           </div>
 
@@ -99,10 +138,17 @@ function Reviews({ product }) {
               <RatingTemp rating={3} />
             </div>
             <div className="w-[200px] h-[14px] bg-slate-200 relative">
-              <div className="h-full bg-[#Edbb0E] w-[40%]"></div>
+              <div
+                style={{
+                  width: `${Math.floor(
+                    (100 * (rating_review[2]?.sum || 0)) / totalReview
+                  )}%`,
+                }}
+                className="h-full bg-[#Edbb0E] w-[40%]"
+              ></div>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-100 w-[0%]">
-              8
+              {rating_review[2]?.sum}
             </p>
           </div>
 
@@ -111,10 +157,17 @@ function Reviews({ product }) {
               <RatingTemp rating={2} />
             </div>
             <div className="w-[200px] h-[14px] bg-slate-200 relative">
-              <div className="h-full bg-[#Edbb0E] w-[30%]"></div>
+              <div
+                style={{
+                  width: `${Math.floor(
+                    (100 * (rating_review[3]?.sum || 0)) / totalReview
+                  )}%`,
+                }}
+                className="h-full bg-[#Edbb0E] w-[30%]"
+              ></div>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-100 w-[0%]">
-              5
+              {rating_review[3]?.sum}
             </p>
           </div>
 
@@ -123,10 +176,17 @@ function Reviews({ product }) {
               <RatingTemp rating={1} />
             </div>
             <div className="w-[200px] h-[14px] bg-slate-200 relative">
-              <div className="h-full bg-[#Edbb0E] w-[10%]"></div>
+              <div
+                style={{
+                  width: `${Math.floor(
+                    (100 * (rating_review[4]?.sum || 0)) / totalReview
+                  )}%`,
+                }}
+                className="h-full bg-[#Edbb0E] w-[10%]"
+              ></div>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-100 w-[0%]">
-              3
+              {rating_review[4]?.sum}
             </p>
           </div>
 
@@ -145,26 +205,22 @@ function Reviews({ product }) {
       </div>
 
       <h2 className="py-5 text-xl font-bold text-slate-600 dark:text-slate-100">
-        Product Review 10
+        Product Review ({totalReview})
       </h2>
       <div className="flex flex-col gap-8 pt-4 pb-10">
-        {[1, 2, 3, 4, 5].map((r, i) => (
+        {reviews.map((r, i) => (
           <div
             key={i}
             className="flex flex-col gap-1 text-slate-600 dark:text-slate-100 "
           >
             <div className="flex items-center justify-between">
               <div className="flex gap-1 text-xl">
-                <RatingTemp rating={4} />
+                <RatingTemp rating={r.rating} />
               </div>
-              <span className="">8 Jan 2024</span>
+              <span className="">{r.date}</span>
             </div>
-            <span className=" text-md">Olaoluwa John</span>
-            <p className="text-sm">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut sit
-              ab ex repellat non, obcaecati ad dolorum, corrupti, consequatur
-              quod debitis nemo at tempore suscipit quis? Amet ipsa officiis at?
-            </p>
+            <span className=" text-md font-semibold">{r.name} </span>
+            <p className="text-sm">{r.review}</p>
           </div>
         ))}
         <div className="flex justify-end">
@@ -172,9 +228,9 @@ function Reviews({ product }) {
             <Pagination
               pageNumber={pageNumber}
               setPageNumber={setPageNumber}
-              totalItem={10}
+              totalItem={totalReview}
               parPage={parPage}
-              showItem={Math.floor(10 / 4)}
+              showItem={Math.floor(totalReview / 3)}
             />
           }
         </div>
