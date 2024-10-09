@@ -29,7 +29,7 @@ function Reviews({ product }) {
 
   // const userInfo = {};
 
-  const [rat, setRat] = useState("2");
+  const [rat, setRat] = useState("");
   const [re, setRe] = useState("");
 
   function review_submit(e) {
@@ -44,7 +44,7 @@ function Reviews({ product }) {
     // console.log(obj);
     dispatch(customer_review(obj));
   }
-
+  
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage);
@@ -59,8 +59,9 @@ function Reviews({ product }) {
       setRe("");
       dispatch(messageClear());
     }
+    dispatch(messageClear());
     // console.log(product);
-  }, [successMessage, dispatch, product, pageNumber]);
+  }, [successMessage, product, pageNumber, dispatch]);
 
   useEffect(() => {
     if (product._id) {
