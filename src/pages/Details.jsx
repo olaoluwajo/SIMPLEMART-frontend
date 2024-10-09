@@ -67,7 +67,7 @@ function Details() {
   const [quantity, setQuantity] = useState(1);
   const { userInfo } = useSelector((state) => state.auth);
   const { errorMessage, successMessage } = useSelector((state) => state.cart);
-  const { product, relatedProducts, moreProducts } = useSelector(
+  const { product, relatedProducts, moreProducts, totalReview } = useSelector(
     (state) => state.home
   );
   // console.log(product);
@@ -223,9 +223,9 @@ function Details() {
               </div>
               <div className="flex items-center justify-start gap-4">
                 <div className="flex text-xl">
-                  <Rating ratings={3.5} />
+                  <Rating ratings={product.rating} />
                 </div>
-                <span className="text-green-500">(24 reviews)</span>
+                <span className="text-green-500">({totalReview} reviews)</span>
               </div>
 
               <div className="flex gap-3 text-2xl font-bold text-red-500">
@@ -273,6 +273,9 @@ function Details() {
                   {/* {product.description.slice(0, 230)}
                   {"..."} */}
                   {product.description}
+                </p>
+                <p className="text-slate-600 py-1 font-bold">
+                  Shop Name : {product.shopName}
                 </p>
               </div>
 
