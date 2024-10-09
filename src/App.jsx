@@ -11,6 +11,7 @@ import ChangePassword from "./components/dashboard/ChangePassword";
 import Wishlist from "./components/dashboard/Wishlist";
 import PageNotFound from "./pages/PageNotFound";
 import OrderDetails from "./components/dashboard/OrderDetails";
+import Chat from "./components/dashboard/Chat";
 const Home = lazy(() => import("./pages/Home"));
 const Shops = lazy(() => import("./pages/Shops"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -96,6 +97,14 @@ const router = createBrowserRouter([
               {
                 path: "order/details/:orderId",
                 element: <OrderDetails />,
+              },
+              {
+                path: "chat",
+                element: <Chat />,
+              },
+              {
+                path: "chat/:sellerId",
+                element: <Chat />,
               },
             ],
           },
