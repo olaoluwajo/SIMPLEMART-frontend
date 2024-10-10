@@ -20,7 +20,7 @@ import { messageClear } from "../store/reducers/cartReducer";
 function Reviews({ product }) {
   const dispatch = useDispatch();
 
-  const [parPage, setParPage] = useState(10);
+  const [parPage, setParPage] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
   const { userInfo } = useSelector((state) => state.auth);
   const { successMessage, reviews, rating_review, totalReview } = useSelector(
@@ -28,8 +28,8 @@ function Reviews({ product }) {
   );
 
   // const userInfo = {};
-
-  const [rat, setRat] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [rat, setRat] = useState("1");
   const [re, setRe] = useState("");
 
   function review_submit(e) {
@@ -43,10 +43,11 @@ function Reviews({ product }) {
     };
     // console.log(obj);
     dispatch(customer_review(obj));
+    setSubmitted(true);
   }
-  
+
   useEffect(() => {
-    if (successMessage) {
+    if (submitted && successMessage) {
       toast.success(successMessage);
       dispatch(
         get_reviews({
@@ -55,13 +56,16 @@ function Reviews({ product }) {
         })
       );
       dispatch(product_details(product.slug));
-      setRat("");
+      setRat("1");
       setRe("");
+      // Clear the success message AFTER handling everything
+      // setTimeout(() => {
+      // }, 1500);
       dispatch(messageClear());
+      setSubmitted(false);
     }
-    dispatch(messageClear());
     // console.log(product);
-  }, [successMessage, product, pageNumber, dispatch]);
+  }, [successMessage, product, pageNumber, dispatch, submitted]);
 
   useEffect(() => {
     if (product._id) {
