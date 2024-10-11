@@ -3,7 +3,7 @@ import { AiOutlineMessage, AiOutlinePlus } from "react-icons/ai";
 import { GrEmoji } from "react-icons/gr";
 import { IoSend } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { add_friend, send_message } from "../../store/reducers/chatReducer";
 
@@ -11,6 +11,7 @@ const socket = io("http://localhost:5000");
 
 function Chat() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { sellerId } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
@@ -45,6 +46,9 @@ function Chat() {
       );
       setText("");
     }
+  }
+  function handleHomeRedirect() {
+    navigate("/shops");
   }
 
   return (
@@ -164,8 +168,17 @@ function Chat() {
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-center w-full h-full text-lg ont-bold text-slate-600">
-              <span>select seller</span>
+            <div className="flex flex-col gap-4 items-center justify-center w-full h-full text-lg font-bold text-slate-600 dark:text-slate-100 bg-slate-100 dark:bg-[#131923]">
+              <span>Select a Seller</span>
+              <span className="text-3xl">OR</span>
+
+              <button
+                onClick={handleHomeRedirect}
+                className=" rounded px-5 py-2.5 overflow-hidden group bg-[#059473] relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
+              >
+                <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                <span className="relative">BUY SOMETHING</span>
+              </button>
             </div>
           )}
         </div>
