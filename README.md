@@ -1,10 +1,32 @@
-# NOTE: CLONE FROM THE DEVELOPMENT BRANCH AND NOT FROM THE MAIN BRANCH 
+# SimpleMart Multivendor Website Frontend
 
-# React + Vite
+SimpleMart is a multivendor e-commerce platform built using ReactJS. It allows multiple vendors to sell products, and customers can browse and purchase products from different vendors.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- Vendor registration and management
+- Product listing and management
+- Customer chat with sellers
+- Add sellers as friends
 
-Currently, two official plugins are available:
+## Installation
+1. Clone the repository from the development branch:
+   ```bash
+   git clone -b development https://github.com/olaoluwajo/SIMPLEMART-frontend
+   npm install
+   npm run dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Branching Strategy
+All development work is done on the `development` branch. Any changes should be pushed to this branch before being merged into the main branch.
+
+## Contributing
+To contribute:
+1. Clone the `development` branch.
+2. Make your changes.
+3. Submit a pull request to merge into the `development` branch.
+
+## License
+This project is licensed under the MIT License.
+
+
+
+
