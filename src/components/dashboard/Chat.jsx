@@ -7,7 +7,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { add_friend, send_message } from "../../store/reducers/chatReducer";
 
-const socket = io("http://localhost:5000");
+// const socket = io("http://localhost:5000");
+const socket = io([
+  "http://localhost:5000",
+  "https://simple-ecommerce-backend.onrender.com",
+]);
 
 function Chat() {
   const dispatch = useDispatch();
@@ -151,6 +155,7 @@ function Chat() {
                     placeholder="input message"
                     className="w-full h-full p-3 rounded-full outline-none dark:bg-transparent dark:text-white "
                   />
+
                   <div className="absolute text-2xl cursor-auto right-2 top-2 z-10 bg-white dark:bg-[#232D3F]  dark:text-white pl-3">
                     <span>
                       <GrEmoji />
