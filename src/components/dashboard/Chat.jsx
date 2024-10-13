@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { add_friend, send_message } from "../../store/reducers/chatReducer";
+import EmptyButton from "../ui/EmptyButton";
 
 // const socket = io("http://localhost:5000");
 const socket = io([
@@ -51,7 +52,7 @@ function Chat() {
       setText("");
     }
   }
-  function handleHomeRedirect() {
+  function handleRedirect() {
     navigate("/shops");
   }
 
@@ -177,13 +178,11 @@ function Chat() {
               <span>Select a Seller</span>
               <span className="text-3xl">OR</span>
 
-              <button
-                onClick={handleHomeRedirect}
-                className=" rounded px-5 py-2.5 overflow-hidden group bg-[#059473] relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
-              >
-                <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                <span className="relative">BUY SOMETHING</span>
-              </button>
+              <EmptyButton
+                text="BUY SOMETHING"
+                onClick={handleRedirect}
+                className="my-custom-class"
+              />
             </div>
           )}
         </div>
