@@ -24,8 +24,7 @@ To contribute:
 2. Make your changes.
 3. Submit a pull request to merge into the `development` branch.
 
-## License
-This project is licensed under the MIT License.
+
 
 
 
