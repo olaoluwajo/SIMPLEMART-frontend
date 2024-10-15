@@ -12,6 +12,7 @@ import {
   remove_wishlist,
 } from "../../store/reducers/cartReducer";
 import toast from "react-hot-toast";
+import EmptyButton from "../ui/EmptyButton";
 
 function Wishlist() {
   const dispatch = useDispatch();
@@ -124,11 +125,7 @@ function Wishlist() {
             You haven&apos;t wished for any product yet
           </p>
 
-          <Link to="/">
-            <button className="px-6 py-2 font-semibold text-white transition duration-300 bg-[#059473] rounded hover:bg-blue-500">
-              Go Back to Home
-            </button>
-          </Link>
+          <EmptyButton text="Go Back to Home" to={"/"} />
         </div>
       )}
     </div>

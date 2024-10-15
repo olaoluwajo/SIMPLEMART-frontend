@@ -3,8 +3,15 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaNairaSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { delete_cart_product, get_cart_products, messageClear, quantity_dec, quantity_inc } from "../store/reducers/cartReducer";
+import {
+  delete_cart_product,
+  get_cart_products,
+  messageClear,
+  quantity_dec,
+  quantity_inc,
+} from "../store/reducers/cartReducer";
 import toast from "react-hot-toast";
+import EmptyButton from "../components/ui/EmptyButton";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -63,6 +70,9 @@ function Cart() {
     return new Intl.NumberFormat("en-US").format(number);
   }
 
+  function handleRedirect() {
+    navigate("/shops");
+  }
 
   return (
     <div>
@@ -337,12 +347,11 @@ function Cart() {
                 Looks like you haven&apos;t added anything to your cart yet.
               </p>
               <div>
-                <Link
-                  className="px-4 py-2 text-white transition duration-300 bg-indigo-500 rounded-md dark:bg-green-500 hover:bg-indigo-600 dark:hover:bg-green-600"
-                  to="/shops"
-                >
-                  Shop Now
-                </Link>
+                <EmptyButton
+                  text="BUY SOMETHING"
+                  onClick={handleRedirect}
+                  className="my-custom-class"
+                />
               </div>
             </div>
           )}
