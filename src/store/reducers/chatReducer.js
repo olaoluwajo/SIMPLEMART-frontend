@@ -9,7 +9,7 @@ export const add_friend = createAsyncThunk(
         "/chat/customer/add-customer-friend",
         info
       );
-      console.log(data);
+      // console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -26,7 +26,7 @@ export const send_message = createAsyncThunk(
         "/chat/customer/send-message-to-seller",
         info
       );
-      console.log(data);
+      // console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -49,6 +49,9 @@ export const chatReducer = createSlice({
     messageClear: (state, _) => {
       state.errorMessage = "";
       state.successMessage = "";
+    },
+    updateMessage: (state, { payload }) => {
+      state.fwb_messages = [...state.fb_messages, payload];
     },
   },
   extraReducers: (builder) => {
@@ -75,5 +78,5 @@ export const chatReducer = createSlice({
       });
   },
 });
-export const { messageClear } = chatReducer.actions;
+export const { messageClear, updateMessage } = chatReducer.actions;
 export default chatReducer.reducer;

@@ -6,7 +6,7 @@ const local = "http://localhost:5000";
 const production = "https://simple-ecommerce-backend.onrender.com"; 
 
 const api = axios.create({
-  baseURL: `${production}/api`,
+  baseURL: `${local}/api`,
   withCredentials: true,
 });
 
